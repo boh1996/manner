@@ -1,0 +1,35 @@
+{
+  "name": "Manner",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Bo Thomsen",
+      "url": "bothomsen.me",
+      "email": "boh1996@gmail.com"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Bo Thomsen",
+      "url": "bothomsen.me",
+      "email": "boh1996@gmail.com"
+    }
+  ],
+  "main": "index.html",
+  "description": "Man planner",
+  "license": "MIT",
+  "bugs": {
+    "email": "boh1996@gmail.com"
+  },
+  "engines": {
+    "node": "4.2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boh1996/manner.git"
+  },
+  "devDependencies": [],
+  "dependencies": {
+    "simplehttpserver": "0.0.5"
+  }
+}
