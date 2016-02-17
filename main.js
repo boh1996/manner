@@ -204,9 +204,9 @@ personSelect.change(function () {
     $.cookie('person', $(this).val(), { expires: 30 });
 });
 
-if (!/android/i.test(navigator.userAgent)) {
+/*if (!/android/i.test(navigator.userAgent)) {
     $('header select').yaselect();
-}
+}*/
 
 $('body').addClass('ready');
 

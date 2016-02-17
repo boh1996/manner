@@ -30,6 +30,7 @@
   },
   "devDependencies": [],
   "dependencies": {
+    "fast-csv": "^1.0.0",
     "simplehttpserver": "0.0.5"
   }
 }

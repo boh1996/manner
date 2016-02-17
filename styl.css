@@ -1,0 +1,98 @@
+#persons {
+	margin-top: 2em;
+	border-collapse: collapse;
+	table-layout: fixed;
+	font-size: 80%;
+	width: 100%;
+}
+
+#persons th, #persons td {
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #fff;
+	font-weight: normal;
+}
+
+#perons thead th {
+	height: 4em;
+	-webkit-transform: rotate(270deg);
+}
+
+#persons thead td {
+	width: 6em;
+}
+
+#persons tbody th, #perons tbody td {
+	padding: .5em 0;
+}
+
+#persons tbody th {
+	padding-right: .5em;
+}
+
+#persons tbody th {
+	text-align: right;
+}
+
+#persons tbody td {
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@media ( max-width: 600px ) and (orientation: landscape) {
+	#persons tbody th, #persons tbody td {
+		padding: .25em;
+	}
+}
+
+@media ( max-width: 600px ) and (orientation: portrait) {
+	#persons thead, #persons th {
+		display: none;
+	}
+
+	#persons, #persons tbody,#persons tbody tr,#persons tbody td {
+		margin: 0;
+		border: 0;
+		display: block;
+		text-align: left;
+		font-size: 100%;
+	}
+
+	#persons tbody td {
+		padding: .5em;
+		border-bottom: 1px solid #ccc;
+		font-size: 100% !important;
+		background: transparent !important;
+		color: #000;
+	}
+	
+	#persons tbody td.now {
+		background: #058cf5 !important;
+		color: #fff;
+	}
+
+	#persons tbody td:before {
+		content: attr(data-when);
+		float: right;
+		color: #015de6;
+		font-size: small;
+	}
+	
+	#persons tbody td:after {
+		content: attr(data-who);
+		display: block;
+		margin-top: .25em;
+		font-size: small;
+		color: #999;
+		white-space: normal;
+	}
+
+	#persons tbody td.now:before,#persons tbody td.now:after {
+		color: #fff;
+	}
+	
+	#persons td:empty{
+		display: none;
+	}
+}
