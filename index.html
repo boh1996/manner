@@ -5,75 +5,29 @@
 		<title>Mandskabsplan</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="application-name" content="Mandskabsplan"/>
-		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-57.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-72.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-114.png" />
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#ffffff">
 
 		<link rel="stylesheet" href="./material.min.css">
 		<script src="./material.min.js"></script>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="styl.css">
 	</head>
-
-	<style type="text/css">
-		#trips .mdl-list__item-primary-content {
-			max-width: 65%;
-		}
-
-		#contact {
-			padding: 10px;
-		}
-
-		header, .mdl-layout__tab-bar {
-			background-color: #03A9F4 !important;
-		}
-
-		.mdl-list__item {
-			cursor: pointer;
-		}
-
-		.mdl-list__item:hover, .mdl-list__item:active, .mdl-list__item:focus {
-			background-color: #e6e6e6;
-		}
-
-		#trip, #contact {
-			padding: 5px;
-		}
-
-		.mdl-data-table {
-			width: 100% !important;
-		}
-
-
-		.mdl-data-table tr {
-			cursor: pointer;
-		}
-
-		.mdl-data-table td {
-			white-space: nowrap;
-			max-width: 100%;
-		}
-
-		#plan .mdl-list__item-avatar, #trips .mdl-list__item-avatar {
-			padding: 5px;
-			font-size: 30px;
-		}
-
-		.page.visible {
-			display: block !important;
-		}
-
-		.page {
-			display: none;
-			height: 100% !important;
-		}
-
-		.hidden {
-			display: none;
-		}
-	</style>
 	
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -86,21 +40,22 @@
 				</div>
 
 				<div class="mdl-layout__tab-bar mdl-js-ripple-effect hidden" id="dayTripSelect">
-					<a href="#trips-onsdag" class="mdl-layout__tab is-active">Ons</a>
-					<a href="#trips-torsdag" class="mdl-layout__tab">Tor</a>
-					<a href="#trips-fredag" class="mdl-layout__tab">Fre</a>
-					<a href="#trips-loerdag" class="mdl-layout__tab">Lør</a>
-					<a href="#trips-soendag" class="mdl-layout__tab">Søn</a>
+					<a href="#trips-onsdag" id="nav-ons" class="mdl-layout__tab is-active">Ons</a>
+					<a href="#trips-torsdag" id="nav-tor" class="mdl-layout__tab">Tor</a>
+					<a href="#trips-fredag" id="nav-fre" class="mdl-layout__tab">Fre</a>
+					<a href="#trips-loerdag" id="nav-loe" class="mdl-layout__tab">Lør</a>
+					<a href="#trips-soendag" id="nav-soe" class="mdl-layout__tab">Søn</a>
 				</div>
 			</header>
 			<div class="mdl-layout__drawer">
 				<span class="mdl-layout-title">Personer</span>
 				<nav class="mdl-navigation">
-					<a class="mdl-navigation__link" href="#plan">Personer</a>
+					<a class="mdl-navigation__link" href="#people">Personer</a>
 					<a class="mdl-navigation__link" href="#contacts">Kontaktinformationer</a>
-					<a class="mdl-navigation__link" href="#living">Indkvartering</a>
 					<a class="mdl-navigation__link" href="#trips">Sejladser</a>
 					<a class="mdl-navigation__link" href="#locations">Indkvartering</a>
+					<a class="mdl-navigation__link" href="#restaurants">Forplejning</a>
+					<a class="mdl-navigation__link" href="#ferries">Færgeoversigt</a>
 				</nav>
 			</div>
 			<main class="mdl-layout__content">
@@ -108,45 +63,56 @@
 					
 				</div>
 
-				<div id="plan" class="page">
+				<div id="ferries" class="page">
+					
+				</div>
+
+				<div id="restaurants" class="page">
+					
+				</div>
+
+				<div id="people" class="page">
+					
+				</div>
+
+				<div id="peoplePlan" class="page">
 					<section class="mdl-layout__tab-panel is-active" id="plan-onsdag">
 						<div class="page-content">
-							<!--<div class="mdl-list">	
-								<div class="mdl-list__item mdl-list__item--three-line">
-									<span class="mdl-list__item-primary-content">
-										<i class="material-icons mdl-list__item-avatar">local_dining</i>
-										<span>Morgenmad</span>
-										<span class="mdl-list__item-text-body">
-											Alle
-										</span>
-									</span>
-									<span class="mdl-list__item-secondary-action">08:00 - 10:00</span>
-								</div>
-							</div>-->
+							<div class="mdl-list">
+
+							</div>
 						</div>
 					</section>
 
 					<section class="mdl-layout__tab-panel" id="plan-torsdag">
 						<div class="page-content">
-							
+							<div class="mdl-list">
+
+							</div>
 						</div>
 					</section>
 
 					<section class="mdl-layout__tab-panel" id="plan-fredag">
 						<div class="page-content">
-							
+							<div class="mdl-list">
+
+							</div>
 						</div>
 					</section>
 
 					<section class="mdl-layout__tab-panel" id="plan-loerdag">
 						<div class="page-content">
-							
+							<div class="mdl-list">
+
+							</div>
 						</div>
 					</section>
 
 					<section class="mdl-layout__tab-panel" id="plan-soendag">
 						<div class="page-content">
-							
+							<div class="mdl-list">
+
+							</div>
 						</div>
 					</section>
 				</div>
@@ -205,11 +171,36 @@
 						
 					</table>
 				</div>
+
+				<div id="restaurant" class="page">
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+						
+					</table>
+				</div>
+
+				<div id="ferry" class="page">
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+						
+					</table>
+				</div>
 			</main>
 		</div>
 
 		<script src="jquery.min.js"></script>
 		<script src="handlebars.js"></script>
+
+		<script type="text/x-handlebars-template" id="peoplePlanTemplate">
+			<div class="mdl-list__item mdl-list__item--three-line">
+				<span class="mdl-list__item-primary-content" data-href="#{{type}}/{{id}}">
+					<i class="material-icons mdl-list__item-avatar">{{icon}}</i>
+					<span>{{label}}</span>
+					<span class="mdl-list__item-text-body">
+						{{crew}}
+					</span>
+				</span>
+				<span class="mdl-list__item-secondary-action">{{start}} - {{end}}</span>
+			</div>
+		</script>
 
 		<script type="text/x-handlebars-template" id="tripItemTemplate">
 			<div class="mdl-list__item mdl-list__item--three-line">
@@ -221,6 +212,55 @@
 					</span>
 				</span>
 				<span class="mdl-list__item-secondary-action">{{start}} - {{end}}</span>
+			</div>
+		</script>
+
+		<script type="text/x-handlebars-template" id="ferriesTemplate">
+			<div class="mdl-list">
+				 {{#each ferries}}
+					<div class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content" data-href="#ferry/{{id}}">
+							<i class="material-icons mdl-list__item-avatar">directions_boat</i>
+							<span>Færge</span>
+							<span class="mdl-list__item-text-body">
+								{{people}}
+							</span>
+						</span>
+						<span class="mdl-list__item-secondary-action">{{time}}</span>
+					</div>
+				{{/each}}
+			</div>
+		</script>
+
+		<script type="text/x-handlebars-template" id="peopleTemplate">
+			<div class="mdl-list">
+				 {{#each people}}
+				 	{{#if contact }}
+					<div class="mdl-list__item">
+						<span class="mdl-list__item-primary-content" data-href="#people/{{contact.id}}">
+							<i class="material-icons mdl-list__item-avatar">person</i>
+							<span>{{contact.name}}</span>
+						</span>
+					</div>
+					{{/if}}
+				{{/each}}
+			</div>
+		</script>
+
+		<script type="text/x-handlebars-template" id="restaurantsTemplate">
+			<div class="mdl-list">
+				 {{#each restaurants}}
+					<div class="mdl-list__item mdl-list__item--three-line">
+						<span class="mdl-list__item-primary-content" data-href="#restaurant/{{id}}">
+							<i class="material-icons mdl-list__item-avatar">{{#foodIcons meal}}{{/foodIcons}}</i>
+							<span>{{meal}}</span>
+							<span class="mdl-list__item-text-body">
+								{{place}} - {{number_of_people}}
+							</span>
+						</span>
+						<span class="mdl-list__item-secondary-action">{{day}}</span>
+					</div>
+				{{/each}}
 			</div>
 		</script>
 
@@ -241,17 +281,67 @@
 			</div>
 		</script>
 
-		<script type="text/x-handlebars-template" id="personsTemplate">
-			<div class="mdl-list">
-				 {{#each persons}}
-					<div class="mdl-list__item">
-						<span class="mdl-list__item-primary-content">
-							<i class="material-icons mdl-list__item-avatar">person</i>
-							<span>{{name}}</span>
-						</span>
-					</div>
+		<script type="text/x-handlebars-template" id="restaurantTemplate">
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Dag</b></td>
+					<td>{{day}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Måltid</b></td>
+					<td>{{meal}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Sted</b></td>
+					<td>{{place}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Personer</b></td>
+					<td>{{number_of_people}}</td>
+				</tr>
+				
+			</tbody>
+		</script>
+
+		<script type="text/x-handlebars-template" id="ferryTemplate">
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Dag</b></td>
+					<td>{{day}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Fra</b></td>
+					<td>{{from}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Til</b></td>
+					<td>{{to}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Tid</b></td>
+					<td>{{time}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Køretøjer</b></td>
+					<td></td>
+				</tr>
+				{{#each vehicles}}
+					<tr>
+						<td class="mdl-data-table__cell--non-numeric"></td>
+						<td>{{this}}</td>
+					</tr>
 				{{/each}}
-			</div>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Personer</b></td>
+					<td></td>
+				</tr>
+				{{#each people}}
+					<tr>
+						<td class="mdl-data-table__cell--non-numeric"></td>
+						<td>{{this}}</td>
+					</tr>
+				{{/each}}
+			</tbody>
 		</script>
 
 		<script type="text/x-handlebars-template" id="tripTemplate">
@@ -326,122 +416,6 @@
 			</tbody>
 		</script>
 	
-		<script type="text/javascript">
-			$(window).on('hashchange', function(){
-				// On every hash change the render function is called with the new hash.
-				// This is how the navigation of our app happens.
-				render(decodeURI(window.location.hash).replace("#", ""));
-			});
-
-			$(document).on("click", '[data-href]', function ( e ) {
-				window.location.hash = $(this).attr("data-href");
-   				e.preventDefault();
-			});
-
-			$(document).on("ready", function () {
-				$.get("data/contacts.json", function( data ) {
-					window.contacts = data;
-					window.crews = [];
-
-					$.get("data/trips.json", function( data ) {
-						window.trips = data;
-						var source   = $("#tripItemTemplate").html();
-						var template = Handlebars.compile(source);
-
-						window.trips.forEach( function ( element, index ) {
-							window.trips[index]["crew"] = window.trips[index]["crew"].split(",");
-
-							element["crew"].forEach( function ( e, i ) {
-								e = e.trim();
-								if ( window.crews[e] == undefined ) {
- 									window.crews[e] = {"name": e, "trips": []};
-								}
-
-								window.crews[e]["trips"].push(element);
-							} );
-
-							window.trips[index]["politicians"] = window.trips[index]["politicians"].split(",");
-
-							if ( element["guests"] != undefined ) {
-								window.trips[index]["guests"] = window.trips[index]["guests"].split(",");
-							}
-
-							var id = element["day"].toLowerCase().replace("ø", 'oe');
-							var html    = template(element);
-
-							$("#trips-" + id).find(".mdl-list").append(html);
-						} );
-
-						render(decodeURI(window.location.hash).replace("#", ""));
-					});
-				});
-			});
-
-			function render(url) {
-				var contactPatt = new RegExp("contact\/(.*)");
-				var tripPatt = new RegExp("trip\/(.*)");
-
-				$(".visible").removeClass("visible");
-				$("#dayTripSelect").addClass("hidden");
-				$("#dayPlanSelect").addClass("hidden");
-
-				// This function decides what type of page to show 
-				// depending on the current url hash value.
-				switch ( url ) {
-					case "contacts":
-						var source   = $("#contactsTemplate").html();
-						var template = Handlebars.compile(source);
-						var context = {"contacts": window.contacts};
-						var html    = template(context);
-
-						$("#contacts").html(html);
-
-						$("#contacts").addClass("visible");
-						$(".mdl-layout-title").html("Kontakter");
-					break;
-
-					case "plan":
-						$("#plan").addClass("visible");
-						$(".mdl-layout-title").html("Personer");
-					break;
-
-					case "contact":
-						$("#contact").addClass("visible");
-					break;
-
-					case "trips":
-						$("#dayTripSelect").removeClass("hidden");
-						$("#trips").addClass("visible");
-						$(".mdl-layout-title").html("Sejladser");
-					break;
-
-					default:
-						if ( contactPatt.test(url) ) {
-							var id = url.replace("contact/", "");
-							var source   = $("#contactTemplate").html();
-							var template = Handlebars.compile(source);
-							var context = window.contacts[id];
-							var html    = template(context);
-
-							$("#contact").find("table").html(html);
-							$("#contact").addClass("visible");
-							$(".mdl-layout-title").html(context["name"]);
-						}
-
-						if ( tripPatt.test(url) ) {
-							var id = url.replace("trip/", "");
-							var source   = $("#tripTemplate").html();
-							var template = Handlebars.compile(source);
-							var context = window.trips[id];
-							var html    = template(context);
-
-							$("#trip").find("table").html(html);
-							$("#trip").addClass("visible");
-							$(".mdl-layout-title").html("Sejlads");
-						}
-					break;
-				}
-			}
-		</script>
+		<script src="./main.js"></script>
 	</body>
 </html>

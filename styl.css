@@ -6,93 +6,58 @@
 	width: 100%;
 }
 
-#persons th, #persons td {
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #fff;
-	font-weight: normal;
+#trips .mdl-list__item-primary-content {
+	max-width: 65%;
 }
 
-#perons thead th {
-	height: 4em;
-	-webkit-transform: rotate(270deg);
+#contact {
+	padding: 10px;
 }
 
-#persons thead td {
-	width: 6em;
+header, .mdl-layout__tab-bar {
+	background-color: #03A9F4 !important;
 }
 
-#persons tbody th, #perons tbody td {
-	padding: .5em 0;
+.mdl-list__item {
+	cursor: pointer;
 }
 
-#persons tbody th {
-	padding-right: .5em;
+.mdl-list__item:hover, .mdl-list__item:active, .mdl-list__item:focus {
+	background-color: #e6e6e6;
 }
 
-#persons tbody th {
-	text-align: right;
+#trip, #contact, #restaurant, #ferry {
+	padding: 5px;
 }
 
-#persons tbody td {
-	color: #fff;
-	text-align: center;
+.mdl-data-table {
+	width: 100% !important;
+}
+
+
+.mdl-data-table tr {
+	cursor: pointer;
+}
+
+.mdl-data-table td {
 	white-space: nowrap;
-	overflow: hidden;
+	max-width: 100%;
 }
 
-@media ( max-width: 600px ) and (orientation: landscape) {
-	#persons tbody th, #persons tbody td {
-		padding: .25em;
-	}
+#peoplePlan .mdl-list__item-avatar, #trips .mdl-list__item-avatar, #restaurants .mdl-list__item-avatar {
+	padding: 5px;
+	font-size: 30px;
 }
 
-@media ( max-width: 600px ) and (orientation: portrait) {
-	#persons thead, #persons th {
-		display: none;
-	}
+.page.visible {
+	display: block !important;
+}
 
-	#persons, #persons tbody,#persons tbody tr,#persons tbody td {
-		margin: 0;
-		border: 0;
-		display: block;
-		text-align: left;
-		font-size: 100%;
-	}
+.page {
+	display: none;
+	height: 100% !important;
+}
 
-	#persons tbody td {
-		padding: .5em;
-		border-bottom: 1px solid #ccc;
-		font-size: 100% !important;
-		background: transparent !important;
-		color: #000;
-	}
-	
-	#persons tbody td.now {
-		background: #058cf5 !important;
-		color: #fff;
-	}
-
-	#persons tbody td:before {
-		content: attr(data-when);
-		float: right;
-		color: #015de6;
-		font-size: small;
-	}
-	
-	#persons tbody td:after {
-		content: attr(data-who);
-		display: block;
-		margin-top: .25em;
-		font-size: small;
-		color: #999;
-		white-space: normal;
-	}
-
-	#persons tbody td.now:before,#persons tbody td.now:after {
-		color: #fff;
-	}
-	
-	#persons td:empty{
-		display: none;
-	}
+.hidden {
+	display: none;
 }

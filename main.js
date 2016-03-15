@@ -1,216 +1,247 @@
-var parser = /^((\S+)\s*-\s*(\S+))\s+([^:]+):([^)]+)$/,
-    groups = {
-        'Vejleder': ['Anne','Asti','Price','Emil','Stald','Gitte','Ida','Jens Mikkel','Jesper','Jonathan','Kim','Kirsten','Luise','Luna','Uncas','Margrethe','Maria','Mikkel','Morten','Signe'],
-        'Køkken': ['Christian','Martin','Nicklas'],
-        'Alle': ['Vejleder','Køkken']
-    },
-    colors = {
-    	'24 timer': '#c30',
-	'Forb. 24 timer': '#c30',
-	'HQ 24 timer': '#c30',
-	'Administration' : '#666',
-	'Afslutning': '#f39',
-	'Aftenaktivitet': '#336',
-	'Forb. Aftenaktivitet': '#336',
-        'Aftensmad, team': '#900',
-        'Aftensmad': '#FF6600',
-	'Hovedbanen': '#f39',
-        'Banket': '#036',
-        'Bademester': '#E60000',
-	'Banketforberedelse': '#036',
-        'Fraværende': '#999',
-        'Frokost': '#900',
-	'Fællesaktivitet': '#CC33FF',
-	'Forb. Fællesaktivitet': '#CC33FF',
-	'Kursistsnak': '#f39',
-	'Kursusbillede': '#f39',
-        'Køkken': '#0af',
-        'Lejrbål': '#669',
-	'Forb. Lejrbål': '#669',
-        'Lejrliv': '#393',
-	'Lejrslagning': '#393',
-	'Madaktivitet': '#FF6600',
-	'Forb. Madaktivitet': '#FF6600',
-        'Madkasser': '#f60',
-	'Modul': '#8AE62E',
-	'Forb. Modul': '#f39',
-        'Morgenmad': '#900',
-	'Morgensamling' : '#0066CC',
-        'Natløb': '#336',
-	'Forb. Natløb': '#336',
-        'Nattevagt': '#333',
-        'Nedbrydning': '#633',
-	'Opvask': '#0af',
-	'Oprydning bad og bajere': '#f39',
-	'P-café': '#8A008A',
-	'Projekt': '#066',
-	'Forb. Projekt': '#066',
-        'Rengøring': '#9c3',
-        'Teamets time' : '#f39',
-	'Vejleder': '#909',
-	'Velkomst': '#8533FF',
-	'Forb. Velkomst': '#8533FF',
-	'Vækning': '#FF33FF',
-	'Forb. Vækning': '#f39',
-    };
+var mappings = {
+    "Frokost": "restaurant",
+    "Morgenmad": "free_breakfast",
+    "Aftensmad": "room_service"
+};
 
-var personSelect = $('select[name="person"]'),
-    daySelect = $('select[name="day"]'),
-    table = $('#persons'),
-    thead = $('<thead>').appendTo(table),
-    headerRow = $('<tr>').appendTo(thead).append('<td>'),
-    tbody = $('<tbody>').appendTo(table),
-    startHour = 7,
-    intervalCount = 32,
-    now = new Date();
-
-for (var i = 0; i < intervalCount; i++) {
-    var decimal = i / 2 + startHour,
-        hours = Math.floor(decimal),
-        minutes = decimal % 1 ? '30' : '00',
-        label = hours + ':' + minutes;
-        
-    $('<th>').appendTo(headerRow).text(label);
-}
-
-function loadData(file) {
-    tbody.empty();
-    
-    $.get('data/' + file + '.txt')
-        .success(function (data) {
-            var persons = parseData(data);
-            renderTable(persons);
-        })
-        .error(function (jqxhr) {
-            var persons = parseData(jqxhr.responseText);
-            renderTable(persons);
-        });
-}
-
-function parseData(data) {
-    var lines = data.split('\n'),
-        persons = {};
-    
-    for (var i in lines) {
-        if ($.trim(lines[i]).length === 0) continue;
-
-        var tokens = lines[i].match(parser),
-            entry = {
-                when: tokens[1],
-                start: parseTime(tokens[2]),
-                end: parseTime(tokens[3]),
-                text: tokens[4].trim(),
-                who: tokens[5]
-            },
-            atendees = _(entry.who.split(',')).map(function (x) { return x.trim(); });
-            
-        entry.color = colors[entry.text] || colors[atendees[0]] || '#36c';
-        
-        while (atendees.length > 0) {
-            var name = atendees.pop();
-            
-            if (groups[name]) {
-                atendees = atendees.concat(groups[name]);
-                continue;
-            }
-            
-            if (!persons[name]) {
-                persons[name] = [];
-            }
-            
-            persons[name].push(entry);
-        }
-    }
-    
-    return persons;
-}
-
-function parseTime(text) {
-    var tokens = text.split(':'),
-        hours = parseInt(tokens[0], 10),
-        minutes = parseInt(tokens[1], 10),
-        decimal = hours + minutes / 60;
-    
-    return Math.round(2 * ( decimal - startHour ));
-}
-
-function renderTable(persons) {
-    var names = _(persons).keys().sort(),
-        currentCol = parseTime(now.getHours() + ':' + now.getMinutes());
-    
-    personSelect.empty();
-    
-    _(names).each(function (name) {
-        var option = $('<option>').text(name).appendTo(personSelect),
-            row = $('<tr>').appendTo(tbody),
-            queue = persons[name],
-            pointer = 0;
-        
-        if (name === $.cookie('person')) {
-            option.attr('selected', true);
-        }
-        
-        $('<th>').text(name).appendTo(row);
-        
-        while (queue.length > 0) {
-            var entry = queue.shift(),
-                duration = entry.end - Math.max(entry.start, pointer);
-                
-            if (duration < 1) continue;
-            
-            while (pointer < entry.start) {
-                row.append('<td>');
-                pointer++;
-            }
-            
-            $('<td>')
-                .appendTo(row)
-                .text(entry.text)
-                .attr('data-when', entry.when)
-                .attr('data-who', entry.who)
-                .attr('colspan', duration)
-                .css('background', entry.color)
-                .css('font-size', Math.min(100, 40 + Math.ceil(300 * duration / entry.text.length)) + '%')
-                .toggleClass('past', entry.end <= currentCol)
-                .toggleClass('now', entry.end > currentCol && !row.children().is('.now'));
-            
-            pointer += duration;
-        }
-        
-        while (pointer < intervalCount) {
-            row.append('<td>');
-            pointer++;
-        }
-    });
-    
-    personSelect.change();
-}
-
-if ($.cookie('day')) {
-    daySelect.val($.cookie('day'));
-}
-else {
-    daySelect.children().eq(now.getDay()).attr('selected', true);
-}
-
-daySelect.change(function () {
-    loadData($(this).val());
-    $.cookie('day', $(this).val());
-}).change();
-
-personSelect.change(function () {
-    var index = $(this).children('[selected]').index();
-    tbody.children().removeClass('selected').eq(index).addClass('selected');
-    $.cookie('person', $(this).val(), { expires: 30 });
+Handlebars.registerHelper('foodIcons', function(context, options) {
+    return mappings[context];
 });
 
-/*if (!/android/i.test(navigator.userAgent)) {
-    $('header select').yaselect();
-}*/
+$(window).on('hashchange', function(){
+    // On every hash change the render function is called with the new hash.
+    // This is how the navigation of our app happens.
+    render(decodeURI(window.location.hash).replace("#", ""));
+});
 
-$('body').addClass('ready');
+$(document).on("click", '[data-href]', function ( e ) {
+    window.location.hash = $(this).attr("data-href");
+    e.preventDefault();
+});
 
-window.applicationCache.addEventListener('updateready', function () {
-    window.applicationCache.swapCache();
-    window.location.reload();
-}, false);
+$(document).on("ready", function () {
+    $.get("data/ferries.json", function( data ) {
+        window.ferries = data;
+    });
+
+    $.get("data/restaurants.json", function( data ) {
+        window.restaurants = data;
+    });
+
+    $.get("data/people.json", function( data ) {
+        window.people = data;
+    });
+
+    $.get("data/contacts.json", function( data ) {
+        window.contacts = data;
+        window.crews = [];
+
+        $.get("data/trips.json", function( data ) {
+            window.trips = data;
+            var source   = $("#tripItemTemplate").html();
+            var template = Handlebars.compile(source);
+
+            window.trips.forEach( function ( element, index ) {
+                //window.trips[index]["crew"] = window.trips[index]["crew"].split(",");
+
+                element["crew"].forEach( function ( e, i ) {
+                    e = e.trim();
+                    if ( window.crews[e] == undefined ) {
+                        window.crews[e] = {"name": e, "trips": []};
+                    }
+
+                    window.crews[e]["trips"].push(element);
+                } );
+
+                //window.trips[index]["politicians"] = window.trips[index]["politicians"].split(",");
+
+                /*if ( element["guests"] != undefined ) {
+                    window.trips[index]["guests"] = window.trips[index]["guests"].split(",");
+                }*/
+
+                var id = element["day"].toLowerCase().replace("ø", 'oe');
+                var html    = template(element);
+
+                $("#trips-" + id).find(".mdl-list").append(html);
+            } );
+
+            render(decodeURI(window.location.hash).replace("#", ""));
+        });
+    });
+});
+
+function render(url) {
+    var contactPatt = new RegExp("contact\/(.*)");
+    var tripPatt = new RegExp("trip\/(.*)");
+    var restaurantPatt = new RegExp("restaurant\/(.*)");
+    var ferryPatt = new RegExp("ferry\/(.*)");
+    var peoplePatt = new RegExp("people\/(.*)");
+
+    $(".visible").removeClass("visible");
+    $("#dayTripSelect").addClass("hidden");
+    $("#dayPlanSelect").addClass("hidden");
+
+    // This function decides what type of page to show 
+    // depending on the current url hash value.
+    switch ( url ) {
+        case "restaurants":
+            var source   = $("#restaurantsTemplate").html();
+            var template = Handlebars.compile(source);
+            var context = {"restaurants": window.restaurants};
+            var html    = template(context);
+
+            $("#restaurants").html(html);
+
+            $("#restaurants").addClass("visible");
+
+            $(".mdl-layout-title").html("Forplejning");
+        break;
+
+        case "locations":
+
+            $(".mdl-layout-title").html("Indkvartering");
+        break;
+
+        case "ferries":
+            var source   = $("#ferriesTemplate").html();
+            var template = Handlebars.compile(source);
+            var context = {"ferries": window.ferries};
+            var html    = template(context);
+
+            $("#ferries").html(html);
+
+            $("#ferries").addClass("visible");
+
+            $(".mdl-layout-title").html("Færgeoversigt");
+        break;
+
+        case "contacts":
+            var source   = $("#contactsTemplate").html();
+            var template = Handlebars.compile(source);
+            var context = {"contacts": window.contacts};
+            var html    = template(context);
+
+            $("#contacts").html(html);
+
+            $("#contacts").addClass("visible");
+            $(".mdl-layout-title").html("Kontakter");
+        break;
+
+        case 'people':
+            var source   = $("#peopleTemplate").html();
+            var template = Handlebars.compile(source);
+            var context = {"people": window.people};
+            var html    = template(context);
+
+            $("#people").html(html);
+
+            $("#people").addClass("visible");
+            $(".mdl-layout-title").html("Personer");
+        break;
+
+        case "plan":
+            $("#plan").addClass("visible");
+            $(".mdl-layout-title").html("Personer");
+        break;
+
+        case "contact":
+            $("#contact").addClass("visible");
+        break;
+
+        case "trips":
+            $("#dayTripSelect a").each( function ( i, nav ) {
+                $(nav).attr("href", $(nav).attr("href").replace("plan", "trips"));
+            } );
+
+            $("#nav-ons").trigger("click");
+
+            $("#dayTripSelect").removeClass("hidden");
+            $("#trips").addClass("visible");
+            $(".mdl-layout-title").html("Sejladser");
+        break;
+
+        default:
+            if ( contactPatt.test(url) ) {
+                var id = url.replace("contact/", "");
+                var source   = $("#contactTemplate").html();
+                var template = Handlebars.compile(source);
+                var context = window.contacts[id];
+                var html    = template(context);
+
+                $("#contact").find("table").html(html);
+                $("#contact").addClass("visible");
+                $(".mdl-layout-title").html(context["name"]);
+            } else if ( tripPatt.test(url) ) {
+                var id = url.replace("trip/", "");
+                var source   = $("#tripTemplate").html();
+                var template = Handlebars.compile(source);
+                var context = window.trips[id];
+                var html    = template(context);
+
+                $("#trip").find("table").html(html);
+                $("#trip").addClass("visible");
+                $(".mdl-layout-title").html("Sejlads");
+            } else if ( restaurantPatt.test(url) ) {
+                var id = url.replace("restaurant/", "");
+                var source   = $("#restaurantTemplate").html();
+                var template = Handlebars.compile(source);
+                var context = window.restaurants[id];
+                var html    = template(context);
+
+                $("#restaurant").find("table").html(html);
+                $("#restaurant").addClass("visible");
+                $(".mdl-layout-title").html("Restaurant");
+            } else if ( ferryPatt.test(url) ) {
+                var id = url.replace("ferry/", "");
+                var source   = $("#ferryTemplate").html();
+                var template = Handlebars.compile(source);
+                var context = window.ferries[id];
+                var html    = template(context);
+
+                $("#ferry").find("table").html(html);
+                $("#ferry").addClass("visible");
+                $(".mdl-layout-title").html("Færge");
+            } else if ( peoplePatt.test(url) ) {
+                var id = url.replace("people/", "");
+                var source   = $("#peoplePlanTemplate").html();
+                var template = Handlebars.compile(source);
+                var context = window.people[id];
+
+                $("#dayTripSelect a").each( function ( i, nav ) {
+                    $(nav).attr("href", $(nav).attr("href").replace("trips", "plan"));
+                } );
+                $("#dayTripSelect").removeClass("hidden");
+
+                $("#peoplePlan").find(".mdl-list").each( function ( i, list ) {
+                    $(list).html("");
+                } );
+
+                if ( context != undefined ) {
+                    for ( var key in context.activities ) {
+                        item = context.activities[key];
+
+                        if ( item["type"] == "trip" ) {
+                            item["icon"] = "directions_boat";
+                            item["label"] = "Sejlads";
+                        } else if ( item["type"] == "restaurant" ) {
+                            item["label"] = item["meal"];
+                            item["icon"] = mappings[item["meal"]];
+                        }
+
+                        var id = item["day"].toLowerCase().replace("ø", 'oe');
+                        var html    = template(item);
+
+                        $("#plan-" + id).find(".mdl-list").append(html);
+                    }
+                }
+
+                $("#nav-ons").trigger("click");
+
+                $("#peoplePlan").addClass("visible");
+                $(".mdl-layout-title").html(context.contact.name);
+            } else {
+                 window.location.hash = "#people";
+            }
+        break;
+    }
+}

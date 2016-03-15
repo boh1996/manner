@@ -1,15 +1,14 @@
 CACHE MANIFEST
-data/fredag.txt
-data/lordag.txt
-data/mandag.txt
-data/onsdag.txt
-data/sondag.txt
-data/tirsdag.txt
-data/torsdag.txt
-jquery-1.6.4.min.js
-jquery.cookie.js
-jquery.yaselect.min.js
-underscore-min.js
-main.js
-style.css
+data/contacts.json
+data/ferries.json
+data/hotels.json
+data/people.json
+data/restaurants.json
+data/trips.json
+jquery.min.js
+styl.css
+handlebars.js
+https://fonts.googleapis.com/icon?family=Material+Icons
+material.min.js
+material.min.css
 /
