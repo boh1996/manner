@@ -1,0 +1,15 @@
+CACHE MANIFEST
+data/contacts.json
+data/ferries.json
+data/hotels.json
+data/people.json
+data/restaurants.json
+data/trips.json
+jquery.min.js
+styl.css
+handlebars.js
+https://fonts.googleapis.com/icon?family=Material+Icons
+material.min.js
+material.min.css
+main.js
+/

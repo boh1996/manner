@@ -197,7 +197,9 @@ function callHotels () {
 						"period": data[1],
 						"address": data[2],
 						"rooms": rooms,
-						"people": people
+						"people": people,
+						"lat": data[5],
+						"lng": data[6]
 					};
 
 					hotelIndex++;

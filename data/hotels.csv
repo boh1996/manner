@@ -1,6 +1,6 @@
-Indkvartering,Lejeperiode,Adresse,Soverum/værelser,Personer
-Hotel Allinge,16-19. juni,Storegade 3-5 3770 Allinge,1 værelse,
-Rosengade 15,15-19. juni,"Rosengade 15, 3770 Allinge","1 dobbeltseng,1 dobbeltseng,2 senge","Klaus Høm,Torben Damsgaard,T. Tuborg Petersen"
-Stakkevænget 4,11-18. juni,"Stakkevænget 4 Sandvig, 3770 Allinge","1 dobbeltseng,2 senge,2 senge","Nathascja Nepper Bryld,Jesper Juel MosbækJette Bay"
-“Krogen”,11-18. juni,"Markvænget 4, Sandvig","1 dobbeltseng,1 dobbeltseng,2 senge,2 senge","Lasse E. Skovgaard,Mai C.Thode,Nadia Buchard,Peter P. Christensen"
-Mester,,Ved havnen,"2 senge,3 dobbeltsenge",
+Indkvartering,Lejeperiode,Adresse,Soverum/værelser,Personer,Lat,Lng
+Hotel Allinge,16-19. juni,Storegade 3-5 3770 Allinge,1 værelse,,55.275347,14.8000043
+Rosengade 15,15-19. juni,"Rosengade 15, 3770 Allinge","1 dobbeltseng,1 dobbeltseng,2 senge","Klaus Høm,Torben Damsgaard,T. Tuborg Petersen",55.278018,14.7962783
+Stakkevænget 4,11-18. juni,"Stakkevænget 4 Sandvig, 3770 Allinge","1 dobbeltseng,2 senge,2 senge","Nathascja Nepper Bryld,Jesper Juel MosbækJette Bay",55.284223,14.7839373
+“Krogen”,11-18. juni,"Markvænget 4, Sandvig","1 dobbeltseng,1 dobbeltseng,2 senge,2 senge","Lasse E. Skovgaard,Mai C.Thode,Nadia Buchard,Peter P. Christensen",55.284657,14.7839063
+Mester,,Ved havnen,"2 senge,3 dobbeltsenge",,55.279732,14.7964033

@@ -1,1 +1,86 @@
-[{"id":0,"name":"Hotel Allinge","period":"16-19. juni","address":"Storegade 3-5 3770 Allinge","rooms":["1 værelse"],"people":null},{"id":1,"name":"Rosengade 15","period":"15-19. juni","address":"Rosengade 15, 3770 Allinge","rooms":["1 dobbeltseng","1 dobbeltseng","2 senge"],"people":["Klaus Høm","Torben Damsgaard","T. Tuborg Petersen"]},{"id":2,"name":"Stakkevænget 4","period":"11-18. juni","address":"Stakkevænget 4 Sandvig, 3770 Allinge","rooms":["1 dobbeltseng","2 senge","2 senge"],"people":["Nathascja Nepper Bryld","Jesper Juel MosbækJette Bay"]},{"id":3,"name":"“Krogen”","period":"11-18. juni","address":"Markvænget 4, Sandvig","rooms":["1 dobbeltseng","1 dobbeltseng","2 senge","2 senge"],"people":["Lasse E. Skovgaard","Mai C.Thode","Nadia Buchard","Peter P. Christensen"]},{"id":4,"name":"Mester","period":"","address":"Ved havnen","rooms":["2 senge","3 dobbeltsenge"],"people":null}]
+[
+  {
+    "id": 0,
+    "name": "Hotel Allinge",
+    "period": "16-19. juni",
+    "address": "Storegade 3-5 3770 Allinge",
+    "rooms": [
+      "1 værelse"
+    ],
+    "people": [
+      ""
+    ],
+    "lat": "55.275347",
+    "lng": "14.8000043"
+  },
+  {
+    "id": 1,
+    "name": "Rosengade 15",
+    "period": "15-19. juni",
+    "address": "Rosengade 15, 3770 Allinge",
+    "rooms": [
+      "1 dobbeltseng",
+      "1 dobbeltseng",
+      "2 senge"
+    ],
+    "people": [
+      "Klaus Høm",
+      "Torben Damsgaard",
+      "T. Tuborg Petersen"
+    ],
+    "lat": "55.278018",
+    "lng": "14.7962783"
+  },
+  {
+    "id": 2,
+    "name": "Stakkevænget 4",
+    "period": "11-18. juni",
+    "address": "Stakkevænget 4 Sandvig, 3770 Allinge",
+    "rooms": [
+      "1 dobbeltseng",
+      "2 senge",
+      "2 senge"
+    ],
+    "people": [
+      "Nathascja Nepper Bryld",
+      "Jesper Juel MosbækJette Bay"
+    ],
+    "lat": "55.284223",
+    "lng": "14.7839373"
+  },
+  {
+    "id": 3,
+    "name": "“Krogen”",
+    "period": "11-18. juni",
+    "address": "Markvænget 4, Sandvig",
+    "rooms": [
+      "1 dobbeltseng",
+      "1 dobbeltseng",
+      "2 senge",
+      "2 senge"
+    ],
+    "people": [
+      "Lasse E. Skovgaard",
+      "Mai C.Thode",
+      "Nadia Buchard",
+      "Peter P. Christensen"
+    ],
+    "lat": "55.284657",
+    "lng": "14.7839063"
+  },
+  {
+    "id": 4,
+    "name": "Mester",
+    "period": "",
+    "address": "Ved havnen",
+    "rooms": [
+      "2 senge",
+      "3 dobbeltsenge"
+    ],
+    "people": [
+      ""
+    ],
+    "lat": "55.279732",
+    "lng": "14.7964033"
+  }
+]

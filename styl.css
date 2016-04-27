@@ -50,7 +50,14 @@ header, .mdl-layout__tab-bar {
 }
 
 .page.visible {
+	display: inline-block;
+	width: 100% !important;
 	display: block !important;
+}
+
+#map {
+	width: 100%;
+	height: calc(100vh - 112px) !important;
 }
 
 .page {
