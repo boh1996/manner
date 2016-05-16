@@ -16,12 +16,34 @@ function initMap() {
 				title: element.name
 	  		});
 		});
+
+		var myloc = new google.maps.Marker({
+		    clickable: false,
+		    icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+		                                                    new google.maps.Size(22,22),
+		                                                    new google.maps.Point(0,18),
+		                                                    new google.maps.Point(11,11)),
+		    shadow: null,
+		    zIndex: 999,
+		    map: window.map
+		});
+
+		if (navigator.geolocation) navigator.geolocation.getCurrentPosition(function(pos) {
+		    var me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+		    myloc.setPosition(me);
+		}, function(error) {
+		    // ...
+		});
 	});
 }
 
 Handlebars.registerHelper('breaklines', function (text) {
   text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
   return new Handlebars.SafeString(text);
+});
+
+Handlebars.registerHelper('firstname', function (text) {
+	return text.split(" ")[0] + ",";
 });
 
 var mappings = {

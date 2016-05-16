@@ -213,7 +213,7 @@
 					<span>{{label}}</span>
 					<span class="mdl-list__item-text-body">
 						{{#each crew}}
-							{{name}}
+							{{#firstname name}}{{/firstname}}
 						{{/each}}
 					</span>
 				</span>
@@ -228,7 +228,7 @@
 					<span>{{type_text}}</span>
 					<span class="mdl-list__item-text-body">
 						{{#each crew}}
-							{{name}}
+							{{#firstname name}}{{/firstname}}
 						{{/each}}
 					</span>
 				</span>
@@ -372,7 +372,7 @@
 				{{#each people}}
 					<tr>
 						<td class="mdl-data-table__cell--non-numeric"></td>
-						<td>{{this}}</td>
+						<td>{{#firstname this}}{{/firstname}}</td>
 					</tr>
 				{{/each}}
 			</tbody>
@@ -399,7 +399,7 @@
 				{{#each crew}}
 					<tr data-href="#people/{{id}}">
 						<td class="mdl-data-table__cell--non-numeric"></td>
-						<td>{{name}}</td>
+						<td>{{#firstname name}}{{/firstname}}</td>
 					</tr>
 				{{/each}}
 					{{#if politicians}}
