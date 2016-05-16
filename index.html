@@ -54,10 +54,11 @@
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link" href="#people">Personer</a>
 					<a class="mdl-navigation__link" href="#contacts">Kontaktinformationer</a>
-					<a class="mdl-navigation__link" href="#trips">Sejladser</a>
+					<a class="mdl-navigation__link" href="#trips">Aktiviteter</a>
 					<a class="mdl-navigation__link" href="#locations">Indkvartering</a>
 					<a class="mdl-navigation__link" href="#restaurants">Forplejning</a>
 					<a class="mdl-navigation__link" href="#ferries">Færgeoversigt</a>
+					<a class="mdl-navigation__link" href="#politicians">Politikere</a>
 				</nav>
 			</div>
 			<main class="mdl-layout__content">
@@ -66,6 +67,10 @@
 				</div>
 
 				<div id="contacts" class="page">
+					
+				</div>
+
+				<div id="politicians" class="page">
 					
 				</div>
 
@@ -189,6 +194,12 @@
 						
 					</table>
 				</div>
+
+				<div id="politician" class="page">
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width">
+						
+					</table>
+				</div>
 			</main>
 		</div>
 
@@ -197,11 +208,13 @@
 
 		<script type="text/x-handlebars-template" id="peoplePlanTemplate">
 			<div class="mdl-list__item mdl-list__item--three-line">
-				<span class="mdl-list__item-primary-content" data-href="#{{type}}/{{id}}">
+				<span class="mdl-list__item-primary-content" data-href="#trip/{{id}}">
 					<i class="material-icons mdl-list__item-avatar">{{icon}}</i>
 					<span>{{label}}</span>
 					<span class="mdl-list__item-text-body">
-						{{crew}}
+						{{#each crew}}
+							{{name}}
+						{{/each}}
 					</span>
 				</span>
 				<span class="mdl-list__item-secondary-action">{{start}} - {{end}}</span>
@@ -211,10 +224,12 @@
 		<script type="text/x-handlebars-template" id="tripItemTemplate">
 			<div class="mdl-list__item mdl-list__item--three-line">
 				<span class="mdl-list__item-primary-content" data-href="#trip/{{id}}">
-					<i class="material-icons mdl-list__item-avatar">directions_boat</i>
-					<span>Sejlads</span>
+					<i class="material-icons mdl-list__item-avatar">{{#tripIcons type}}{{/tripIcons}}</i>
+					<span>{{type_text}}</span>
 					<span class="mdl-list__item-text-body">
-						{{crew}}
+						{{#each crew}}
+							{{name}}
+						{{/each}}
 					</span>
 				</span>
 				<span class="mdl-list__item-secondary-action">{{start}} - {{end}}</span>
@@ -249,6 +264,19 @@
 						</span>
 					</div>
 					{{/if}}
+				{{/each}}
+			</div>
+		</script>
+
+		<script type="text/x-handlebars-template" id="politiciansTemplate">
+			<div class="mdl-list">
+				 {{#each politicians}}
+					<div class="mdl-list__item">
+						<span class="mdl-list__item-primary-content" data-href="#politician/{{id}}">
+							<img class="mdl-list__item-avatar" src="{{image}}" />
+							<span>{{name}}</span>
+						</span>
+					</div>
 				{{/each}}
 			</div>
 		</script>
@@ -361,35 +389,31 @@
 					<td>{{start}} - {{end}}</td>
 				</tr>
 				<tr>
-					<td class="mdl-data-table__cell--non-numeric"><b>Besætning</b></td>
+					<td class="mdl-data-table__cell--non-numeric"><b>Type</b></td>
+					<td>{{type_text}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Crew</b></td>
 					<td></td>
 				</tr>
 				{{#each crew}}
-					<tr>
+					<tr data-href="#people/{{id}}">
 						<td class="mdl-data-table__cell--non-numeric"></td>
-						<td>{{this}}</td>
+						<td>{{name}}</td>
 					</tr>
 				{{/each}}
-				<tr>
-					<td class="mdl-data-table__cell--non-numeric"><b>Politikere</b></td>
-					<td></td>
-				</tr>
-				{{#each politicians}}
+					{{#if politicians}}
 					<tr>
-						<td class="mdl-data-table__cell--non-numeric"></td>
-						<td>{{this}}</td>
+						<td class="mdl-data-table__cell--non-numeric"><b>Politikere</b></td>
+						<td></td>
 					</tr>
-				{{/each}}
-				<tr>
-					<td class="mdl-data-table__cell--non-numeric"><b>Gæster</b></td>
-					<td></td>
-				</tr>
-				{{#each guests}}
-					<tr>
-						<td class="mdl-data-table__cell--non-numeric"></td>
-						<td>{{this}}</td>
-					</tr>
-				{{/each}}
+					{{#each politicians}}
+						<tr data-href="#politician/{{id}}">
+							<td class="mdl-data-table__cell--non-numeric"></td>
+							<td>{{name}}</td>
+						</tr>
+					{{/each}}
+				{{/if}}
 			</tbody>
 		</script>
 
@@ -418,6 +442,40 @@
 				<tr>
 					<td class="mdl-data-table__cell--non-numeric"><b>Fra</b></td>
 					<td>{{from}}</td>
+				</tr>
+			</tbody>
+		</script>
+
+		<script type="text/x-handlebars-template" id="politicianTemplate">
+			<tbody class="full-width">
+				<tr>
+					<td colspan="2" align="center">
+						<img src="{{image}}" width="300" height="300" />
+					</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Navn</b></td>
+					<td>{{name}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Parti</b></td>
+					<td>{{#breaklines party}}{{/breaklines}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Udvalg / ordfører</b></td>
+					<td>{{#breaklines commitee}}{{/breaklines}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Udvalgsposter</b></td>
+					<td>{{#breaklines appointments}}{{/breaklines}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Privat</b></td>
+					<td>{{#breaklines private}}{{/breaklines}}</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric"><b>Link</b></td>
+					<td><a href="{{link}}">{{link}}</a></td>
 				</tr>
 			</tbody>
 		</script>

@@ -1,4 +1,4 @@
-window.map;
+window.map = null;
 function initMap() {
 	window.map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 55.279732, lng: 14.7964033},
@@ -8,8 +8,8 @@ function initMap() {
 
 	$.get("data/hotels.json", function( data ) {
 		window.hotels = data;
+
 		$(window.hotels).each(function (index, element) {
-			console.log(element);
 			new google.maps.Marker({
 				map: window.map,
 				position: {lat: parseFloat(element.lat), lng: parseFloat(element.lng)},
@@ -19,14 +19,31 @@ function initMap() {
 	});
 }
 
+Handlebars.registerHelper('breaklines', function (text) {
+  text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+  return new Handlebars.SafeString(text);
+});
+
 var mappings = {
 	"Frokost": "restaurant",
 	"Morgenmad": "free_breakfast",
 	"Aftensmad": "room_service"
 };
 
+var tripMappings = {
+	"trip": "directions_boat",
+	"afternoon_meeting" : "group_work",
+	"afternoom_meeting"	: "group_work",
+	"watch_at_harbor" : "watch_later",
+	"debate": "speaker_group"
+}
+
 Handlebars.registerHelper('foodIcons', function(context, options) {
 	return mappings[context];
+});
+
+Handlebars.registerHelper('tripIcons', function(context, options) {
+	return tripMappings[context];
 });
 
 $(document).on("click", "#navigation a", function () {
@@ -40,6 +57,7 @@ $(window).on('hashchange', function(){
 });
 
 $(document).on("click", '[data-href]', function ( e ) {
+	console.log($(this).attr("data-href"));
 	window.location.hash = $(this).attr("data-href");
 	e.preventDefault();
 });
@@ -57,6 +75,10 @@ $(document).on("ready", function () {
 		window.people = data;
 	});
 
+	$.get("data/politicians.json", function( data ) {
+		window.politicians = data;
+	});
+
 	$.get("data/contacts.json", function( data ) {
 		window.contacts = data;
 		window.crews = [];
@@ -68,15 +90,17 @@ $(document).on("ready", function () {
 
 			window.trips.forEach( function ( element, index ) {
 				//window.trips[index]["crew"] = window.trips[index]["crew"].split(",");
+				
+				/*if ( element["crew"].length > 0 ) {
+					element["crew"].forEach( function ( e, i ) {
+						e = e.trim();
+						if ( window.crews[e] == undefined ) {
+							window.crews[e] = {"name": e, "trips": []};
+						}
 
-				element["crew"].forEach( function ( e, i ) {
-					e = e.trim();
-					if ( window.crews[e] == undefined ) {
-						window.crews[e] = {"name": e, "trips": []};
-					}
-
-					window.crews[e]["trips"].push(element);
-				} );
+						window.crews[e]["trips"].push(element);
+					} );
+				}
 
 				//window.trips[index]["politicians"] = window.trips[index]["politicians"].split(",");
 
@@ -101,6 +125,7 @@ function render(url) {
 	var restaurantPatt = new RegExp("restaurant\/(.*)");
 	var ferryPatt = new RegExp("ferry\/(.*)");
 	var peoplePatt = new RegExp("people\/(.*)");
+	var polPatt = new RegExp("politician\/(.*)");
 
 	$(".visible").removeClass("visible");
 	$("#dayTripSelect").addClass("hidden");
@@ -123,9 +148,11 @@ function render(url) {
 		break;
 
 		case "locations":
-
 			$("#locations").addClass("visible");
 			$(".mdl-layout-title").html("Indkvartering");
+
+			google.maps.event.trigger(window.map,'resize');
+			window.map.setCenter({lat: 55.279732, lng: 14.7964033});
 		break;
 
 		case "ferries":
@@ -165,6 +192,19 @@ function render(url) {
 			$(".mdl-layout-title").html("Personer");
 		break;
 
+		case "politicians":
+			var source   = $("#politiciansTemplate").html();
+			var template = Handlebars.compile(source);
+			var context = {"politicians": window.politicians};
+			var html    = template(context);
+
+			$("#politicians").html(html);
+
+			$("#politicians").addClass("visible");
+			$(".mdl-layout-title").html("Politikere");
+
+		break;
+
 		case "plan":
 			$("#plan").addClass("visible");
 			$(".mdl-layout-title").html("Personer");
@@ -183,7 +223,7 @@ function render(url) {
 
 			$("#dayTripSelect").removeClass("hidden");
 			$("#trips").addClass("visible");
-			$(".mdl-layout-title").html("Sejladser");
+			$(".mdl-layout-title").html("Aktiviteter");
 		break;
 
 		default:
@@ -206,7 +246,7 @@ function render(url) {
 
 				$("#trip").find("table").html(html);
 				$("#trip").addClass("visible");
-				$(".mdl-layout-title").html("Sejlads");
+				$(".mdl-layout-title").html("Aktivitet");
 			} else if ( restaurantPatt.test(url) ) {
 				var id = url.replace("restaurant/", "");
 				var source   = $("#restaurantTemplate").html();
@@ -227,8 +267,22 @@ function render(url) {
 				$("#ferry").find("table").html(html);
 				$("#ferry").addClass("visible");
 				$(".mdl-layout-title").html("Færge");
+			} else if ( polPatt.test(url) ) {
+				var id = url.replace("politician/", "");
+				var source   = $("#politicianTemplate").html();
+				var template = Handlebars.compile(source);
+				var context = window.politicians[id];
+				/*context.commitee = context.commitee.replace("\n", "<br />");
+				context.appointments = context.appointments.replace("\n", "<br />");
+				context.private = context.private.replace("\n", "<br />");*/
+				var html    = template(context);
+
+				$("#politician").find("table").html(html);
+				$("#politician").addClass("visible");
+				$(".mdl-layout-title").html(context.name);
 			} else if ( peoplePatt.test(url) ) {
 				var id = url.replace("people/", "");
+				console.log(id);
 				var source   = $("#peoplePlanTemplate").html();
 				var template = Handlebars.compile(source);
 				var context = window.people[id];
@@ -246,12 +300,21 @@ function render(url) {
 					for ( var key in context.activities ) {
 						item = context.activities[key];
 
-						if ( item["type"] == "trip" ) {
-							item["icon"] = "directions_boat";
-							item["label"] = "Sejlads";
-						} else if ( item["type"] == "restaurant" ) {
-							item["label"] = item["meal"];
-							item["icon"] = mappings[item["meal"]];
+						switch ( item["type"] ) {
+							case "trip":
+								item["icon"] = "directions_boat";
+								item["label"] = "Sejlads";
+							break;
+
+							case "restaurant":
+								item["label"] = item["meal"];
+								item["icon"] = mappings[item["meal"]];
+							break;
+
+							default:
+								item["label"] = item["type_text"];
+								item["icon"] = tripMappings[item["type"]];
+							break;
 						}
 
 						var id = item["day"].toLowerCase().replace("ø", 'oe');

@@ -10,6 +10,7 @@ var contactsUrl = "https://docs.google.com/spreadsheets/d/1Yp6mcxMrwb8icsdhSq0JK
 var restaurantsUrl = "https://docs.google.com/spreadsheets/u/0/d/12QBIvAjcXxGoa6a3ehgUgJ-xaQjHTwo87lzYYCU8q6Y/export?format=csv&id=12QBIvAjcXxGoa6a3ehgUgJ-xaQjHTwo87lzYYCU8q6Y&gid=0";
 var hotelsUrl = "https://docs.google.com/spreadsheets/u/0/d/1Pu3QzMz0sNM9SeLPrCKBLnGK5zT3f6anmmRdc_8nEIc/export?format=csv&id=1Pu3QzMz0sNM9SeLPrCKBLnGK5zT3f6anmmRdc_8nEIc&gid=0";
 var ferriesUrl = "https://docs.google.com/spreadsheets/u/0/d/1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM/export?format=csv&id=1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM&gid=0";
+var politiciansUrl = "https://docs.google.com/spreadsheets/d/1PgDvGj2LVM1F3S5VV8bXxTykNuUv_YKBFgz1yP9jEwA/export?format=csv&id=1PgDvGj2LVM1F3S5VV8bXxTykNuUv_YKBFgz1yP9jEwA&gid=0";
 
 var contacts = [];
 var contacts_lookup = [];
@@ -18,8 +19,58 @@ var restaurants = [];
 var hotels = [];
 var ferries = [];
 var people = [];
+var politicians = [];
+var pol_lookup = [];
+var all = [];
 
-callTrips();
+callPoliticians();
+
+function callPoliticians () {
+	var politicansFile = fs.createWriteStream("data/politicians.csv");
+	https.get(politiciansUrl, function(response) {
+	  	var stream = response.pipe(politicansFile);
+
+	  	stream.on('finish', function () {
+		  	var polIndex = 0;
+			var polFirst = true;
+
+			csv
+			.fromPath("data/politicians.csv")
+			.on("data", function(data){
+			 	if ( polFirst == false ) {
+					if ( data[0] != undefined ) {
+						pol_lookup[data[0]] = polIndex;
+					}
+
+					politicians[polIndex] = {
+						"id": polIndex,
+						"name": data[0],
+						"party": data[1],
+						"commitee": data[2],
+						"appointments": data[3],
+						"private": data[4],
+						"image": data[5],
+						"link": data[6]
+					};
+
+					polIndex++;
+				}
+				polFirst = false;
+			}).on("end", function(){
+			 	callTrips();
+
+			 	if ( politicians.length == 0 ) {
+			 		console.log("POL; didn't run");
+			 		return false;
+			 	}
+
+				fs.writeFile('data/politicians.json', JSON.stringify(politicians), function (err) {
+					
+				});
+			});
+		});
+	});
+}
 
 function callTrips () {
 	var tripsFile = fs.createWriteStream("data/trips.csv");
@@ -34,21 +85,53 @@ function callTrips () {
 			.fromPath("data/trips.csv")
 			.on("data", function(data){
 			 	if ( tripFirst == false ) {
-			 		var politicians = "";
+			 		var politiciansList = "";
 			 		var crew = "";
-			 		var guests = "";
 
 			 		if ( data[4] != undefined ) {
-			 			politicians = data[4].split(",");
+			 			politiciansList = data[4].split(",");
 			 		}
 
-			 		if ( data[3] != undefined ) {
+			 		tripPoliticians = [];
+
+			 		politiciansList.forEach( function ( pol, ind ) {
+			 			if ( pol != 0 && ind != undefined ) {
+							tripPoliticians.push({
+								"id": pol_lookup[pol],
+								"name": politicians[pol_lookup[pol]]["name"]
+							});
+						}
+			 		} );
+					
+					if ( data[3] == "Alle" ) {
+						crew = "Alle";
+					} else if ( data[3] != undefined && data[3].length > 1 ) {
 			 			crew = data[3].split(",");
 			 		}
 
-			 		if ( data[5] != undefined ) {
-			 			guests = data[5].split(",");
+			 		if ( crew == "" ) {
+						crew = [];
 			 		}
+
+			 		var type = "";
+
+			 		switch ( data[5] ) {
+					case "Sejlads":
+						type = "trip";
+					break;
+
+					case "Aftenmøde":
+						type = "afternoon_meeting";
+					break;
+
+					case "Vagt på kajen":
+						type = "watch_at_harbor";
+					break;
+
+					case "Debat":
+						type = "debate";
+					break;
+				}
 
 					trips[tripIndex] = {
 						"id": tripIndex,
@@ -56,8 +139,9 @@ function callTrips () {
 						"start": data[1],
 						"end": data[2],
 						"crew": crew,
-						"politicians": politicians,
-						"guests": guests
+						"politicians": tripPoliticians,
+						"type_text": data[5],
+						"type": type
 					};
 
 					tripIndex++;
@@ -70,10 +154,6 @@ function callTrips () {
 			 		console.log("TRIPS didn't run");
 			 		return false;
 			 	}
-
-				fs.writeFile('data/trips.json', JSON.stringify(trips), function (err) {
-					
-				});
 			});
 		});
 	});
@@ -95,6 +175,11 @@ function callContacts () {
 					if ( contactData[0] != "" ) {
 						contacts_lookup[contactData[0]] = contactIndex;
 					}
+					
+					if ( contactData[5] == "Delegation" ) {
+						all.push(contactData[0]);
+					}
+
 					contacts[contactIndex] = {
 						"id": contactIndex,
 						"name": contactData[0],
@@ -142,7 +227,8 @@ function callRes () {
 						"place": resData[2],
 						"number_of_people": resData[3],
 						"start": resData[4],
-						"end": resData[5]
+						"end": resData[5],
+						"crew": "Alle"
 					};
 
 					restaurants[restaurantIndex] = resElement;
@@ -275,9 +361,19 @@ function createPeople () {
 	console.log("People did run");
 
 	trips.forEach( function ( element, index ) {
-		element["crew"].forEach( function ( member ) {
+		if ( element["crew"] == "Alle" ) {
+			console.log(all);
+			element["crew"] = all.slice(0);
+		}
+
+		element["crew"].forEach( function ( member, ind ) {
 			if ( contacts_lookup[member] != undefined ) {
 				var contact_id = contacts_lookup[member];
+
+				element["crew"][ind] = {
+					"name": member,
+					"id": contact_id
+				}
 
 				if ( people[contact_id] == undefined ) {
 					people[contact_id] = {
@@ -285,13 +381,38 @@ function createPeople () {
 						"activities": []
 					}
 				}
+				
+				switch ( element["type_text"] ) {
+					case "Sejlads":
+						element["type"] = "trip";
+					break;
 
-				element["type"] = "trip";
+					case "Aftenmøde":
+						element["type"] = "afternoon_meeting";
+					break;
+
+					case "Vagt på kajen":
+						element["type"] = "watch_at_harbor";
+					break;
+
+					case "Debat":
+						element["type"] = "debate";
+					break;
+				}
 
 				people[contact_id]["activities"].push(element);
+			} else {
+				trips[index]["crew"][ind] = {
+					"name": member,
+					"id": 00
+				};
 			}
 		} );
 	} );
+
+	fs.writeFile('data/trips.json', JSON.stringify(trips), function (err) {
+					
+	});
 
 	restaurants.forEach( function ( res, index ) {
 		people.forEach( function ( pep, i ) {
