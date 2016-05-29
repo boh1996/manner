@@ -1,39 +1,42 @@
-Dag,Start,Slut,Besætning (Scleroseforeningen),Politikere,Type
-Onsdag,17:30,18:15,Alle,,Aftenmøde
-Torsdag,9:00,9:30,,,Vagt på kajen
-Torsdag,9:30,10:30,,,Sejlads
-Fredag,10:30,11:30,"Jette Bay,Peter Christensen",,Vagt på kajen
-Torsdag,11:30,12:30,"Lasse Skovgaard,Klaus Høm",Liselott Blixt,Sejlads
-Torsdag,12:30,13:00,"Tuborg Petersen,Lasse Skovgaard",,Vagt på kajen
-Torsdag,13:00,14:00,,,Sejlads
-Torsdag,14:00,16:00,"Nadia Buchard,Peter Christensen",,Vagt på kajen
-Torsdag,16:00,17:00,"Lasse Skovgaard,Klaus Høm",Carolina Maier,Sejlads
-Torsdag,18:30,19:00,Alle,,Aftenmøde
-Fredag,9:00,9:30,"Torben Damsgaard,Nadia Buchard",,Vagt på kajen
-Fredag,9:30,10:30,"Torben Damsgaard,Nadia Buchard",May-Britt Kattrup,Sejlads
-Fredag,10:00,11:00,Lasse Skovgaard,,Debat
-Fredag,10:15,11:00,Jette Bay,,Debat
-Fredag,10:30,11:30,,,Vagt på kajen
-Fredag,11:30,12:30,"Torben Damsgaard,Nadia Buchard,Lasse Skovgaard,Klaus Høm","Pia Kjærsgaard,Anne Ehrenreich,Jonas Dahl",Sejlads
-Fredag,12:00,12:45,Jette Bay,,Debat
-Fredag,12:30,13:00,,,Vagt på kajen
-Fredag,13:00,14:00,"Torben Damsgaard,Nadia Buchard,Lasse Skovgaard,Klaus Høm","Marianne Jelved,Troels Ravn",Sejlads
-Fredag,14:00,16:00,,,Vagt på kajen
-Fredag,15:00,16:00,Jette Bay,,Debat
-Fredag,15:30,17:00,"Lasse Skovgaard,Klaus Høm",,Debat
-Fredag,16:00,17:00,"Torben Damsgaard,Nadia Buchard","Rune Lund,Karen Klint",Sejlads
-Fredag,18:30,19:00,Alle,,Aftenmøde
-Lørdag,9:00,9:30,"Tuborg Petersen,Peter Christensen",,Vagt på kajen
-Lørdag,9:30,10:30,"Torben Damsgaard,Klaus Høm",Margrethe Auken,Sejlads
-Lørdag,10:30,11:30,"Torben Damsgaard,Nadia Buchard",,Vagt på kajen
-Lørdag,11:30,12:30,"Torben Damsgaard,Nadia Buchard","Pernille Bendixen,Laura Lindahl",Sejlads
-Lørdag,12:20,13:00,"Lasse Skovgaard,Klaus Høm",,Debat
-Lørdag,12:30,13:00,"Jette Bay,Peter Christensen",,Vagt på kajen
-Lørdag,13:00,14:00,"Nadia Buchard,Torben Damsgaard,Jesper Juel Mosbæk,Nathascja Nepper Bryld","Lennart Damsbo-Andersen,Leila Lindén",Sejlads
-Lørdag,14:00,16:00,"Tuborg Petersen,Peter Christensen",,Vagt på kajen
-Lørdag,14:30,15:15,"Lasse Skovgaard,Klaus Høm",,Debat
-Lørdag,16:00,17:00,,,Sejlads
-Søndag,9:00,10:30,Tuborg Petersen,,Vagt på kajen
-Søndag,10:30,11:30,"Nadia Buchard,Lasse Skovgaard,Klaus Høm",Mette Abildgaard,Sejlads
-Søndag,11:30,12:00,"Torben Damsgaard,Klaus Høm",,Vagt på kajen
-Søndag,12:00,13:30,"Torben Damsgaard,Klaus Høm","Jakob Sølvhøj,Jeppe Kofoed",Sejlads
+Dag,Start,Slut,Besætning (Scleroseforeningen),Politikere,Type,Titel,Afholder,Placering
+Torsdag,9:00,9:30,,,Vagt på kajen,,,
+Torsdag,9:30,10:30,,,Sejlads,,,
+Torsdag,10:30,11:30,"Jette Bay,Peter Christensen",,Vagt på kajen,,,
+Torsdag,11:30,12:30,"Lasse Skovgaard,Klaus Høm",Liselott Blixt,Sejlads,,,
+Torsdag,12:30,13:00,"Tuborg Petersen,Lasse Skovgaard",,Vagt på kajen,,,
+Torsdag,13:00,14:00,,Karen Klint,Sejlads,,,
+Torsdag,14:00,16:00,"Nadia Buchard,Peter Christensen",,Vagt på kajen,,,
+Torsdag,16:00,17:00,"Lasse Skovgaard,Klaus Høm",Carolina Maier,Sejlads,,,
+Torsdag,17:30,18:30,Klaus Høm,,Løb,Løb med Løhde,Sofie Løhde,J36 Kæmpestranden
+Torsdag,18:30,19:00,Alle,,Aftenmøde,,,
+Torsdag,19:30,20:00,"Lasse Skovgaard,Klaus Høm",,Gå-hjem event,LEAD Lounge rykker på Folkemødet,LEAD,"Nørregade 6, Allinge"
+Fredag,9:00,9:30,"Torben Damsgaard,Nadia Buchard",,Vagt på kajen,,,
+Fredag,9:30,10:30,"Torben Damsgaard,Nadia Buchard",May-Britt Kattrup,Sejlads,,,
+Fredag,10:00,11:00,Lasse Skovgaard,,Debat,,,
+Fredag,10:15,11:00,Jette Bay,,Debat,Hvad skaber værdi for patienten?,Region Hovedstaden og Bornholms Hospital,J28 Kæmpestranden
+Fredag,10:30,11:30,,,Vagt på kajen,,,
+Fredag,11:30,12:30,"Torben Damsgaard,Nadia Buchard,Lasse Skovgaard,Klaus Høm","Pia Kjærsgaard,Anne Ehrenreich,Jonas Dahl",Sejlads,,,
+Fredag,12:00,12:45,Jette Bay,,Debat,Patienten på direktionsgangen,Region Hovedstaden og Bornholms Hospital,J28 Kæmpestranden
+Fredag,12:30,13:00,,,Vagt på kajen,,,
+Fredag,13:00,14:00,"Torben Damsgaard,Nadia Buchard,Lasse Skovgaard,Klaus Høm","Marianne Jelved,Troels Ravn",Sejlads,,,
+Fredag,14:00,16:00,,,Vagt på kajen,,,
+Fredag,15:00,16:00,Jette Bay,,Debat,Hvad er en værdig død?,Region Hovedstaden og Bornholms Hospital,J28 Kæmpestranden
+Fredag,15:30,17:00,"Lasse Skovgaard,Klaus Høm",,Debat,,,
+Fredag,16:00,17:00,"Torben Damsgaard,Nadia Buchard",Rune Lund,Sejlads,,,
+Fredag,17:45,19:00,Nadia Buchard,,Workshop,Innovationsværksted,Danske Handicaporganisationer,J54 Kæmpestranden
+Fredag,18:30,19:00,Alle,,Aftenmøde,,,
+Lørdag,9:00,9:30,"Tuborg Petersen,Peter Christensen",,Vagt på kajen,,,
+Lørdag,9:30,10:30,"Torben Damsgaard,Klaus Høm",Margrethe Auken,Sejlads,,,
+Lørdag,10:30,11:30,"Torben Damsgaard,Nadia Buchard",,Vagt på kajen,,,
+Lørdag,11:30,12:30,"Torben Damsgaard,Nadia Buchard","Pernille Bendixen,Laura Lindahl",Sejlads,,,
+Lørdag,12:20,13:00,"Lasse Skovgaard,Klaus Høm",,Debat,,,
+Lørdag,12:30,13:00,"Jette Bay,Peter Christensen",,Vagt på kajen,,,
+Lørdag,13:00,14:00,"Nadia Buchard,Torben Damsgaard,Jesper Juel Mosbæk,Nathascja Nepper Bryld","Lennart Damsbo-Andersen,Leila Lindén",Sejlads,,,
+Lørdag,13:30,14:30,Jette Bay,,Debat,,Masterclass i lobbyisme,"Vinkelstræde 2, 3770 Allinge"
+Lørdag,14:00,16:00,"Tuborg Petersen,Peter Christensen",,Vagt på kajen,,,
+Lørdag,14:30,15:15,"Lasse Skovgaard,Klaus Høm",,Debat,,,
+Lørdag,16:00,17:00,,Brita Løvendahl,Sejlads,,,
+Søndag,9:00,10:30,Tuborg Petersen,,Vagt på kajen,,,
+Søndag,10:30,11:30,"Nadia Buchard,Lasse Skovgaard,Klaus Høm",Mette Abildgaard,Sejlads,,,
+Søndag,11:30,12:00,"Torben Damsgaard,Klaus Høm",,Vagt på kajen,,,
+Søndag,12:00,13:30,"Torben Damsgaard,Klaus Høm","Jakob Sølvhøj,Jeppe Kofoed",Sejlads,,,

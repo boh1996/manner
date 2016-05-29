@@ -9,7 +9,7 @@ var tripsUrl = "https://docs.google.com/spreadsheets/d/1MHx-MQmJlK622KasUkiUftnn
 var contactsUrl = "https://docs.google.com/spreadsheets/d/1Yp6mcxMrwb8icsdhSq0JKydmarGQxSULJ2x4O4kEKKI/export?format=csv&id=1Yp6mcxMrwb8icsdhSq0JKydmarGQxSULJ2x4O4kEKKI&gid=0";
 var restaurantsUrl = "https://docs.google.com/spreadsheets/u/0/d/12QBIvAjcXxGoa6a3ehgUgJ-xaQjHTwo87lzYYCU8q6Y/export?format=csv&id=12QBIvAjcXxGoa6a3ehgUgJ-xaQjHTwo87lzYYCU8q6Y&gid=0";
 var hotelsUrl = "https://docs.google.com/spreadsheets/u/0/d/1Pu3QzMz0sNM9SeLPrCKBLnGK5zT3f6anmmRdc_8nEIc/export?format=csv&id=1Pu3QzMz0sNM9SeLPrCKBLnGK5zT3f6anmmRdc_8nEIc&gid=0";
-var ferriesUrl = "https://docs.google.com/spreadsheets/u/0/d/1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM/export?format=csv&id=1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM&gid=0";
+var ferriesUrl = "https://docs.google.com/spreadsheets/d/1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM/export?format=csv&id=1C-YBTOwm-kjKByvuYTTjS73t5MmUhUkhKjCOKwtGDeM&gid=0";
 var politiciansUrl = "https://docs.google.com/spreadsheets/d/1PgDvGj2LVM1F3S5VV8bXxTykNuUv_YKBFgz1yP9jEwA/export?format=csv&id=1PgDvGj2LVM1F3S5VV8bXxTykNuUv_YKBFgz1yP9jEwA&gid=0";
 
 var contacts = [];
@@ -17,11 +17,21 @@ var contacts_lookup = [];
 var trips = [];
 var restaurants = [];
 var hotels = [];
-var ferries = [];
+var ferriesList = [];
 var people = [];
 var politicians = [];
 var pol_lookup = [];
 var all = [];
+
+var trip_mappings = {
+	"Sejlads": "trip",
+	"Aftenmøde": "afternoon_meeting",
+	"Vagt på kajen": "watch_at_harbor",
+	"Debat": "debate",
+	"Løb": "run",
+	"Gå-hjem event": "go_home_event",
+	"Workshop": "workshop"
+};
 
 callPoliticians();
 
@@ -95,7 +105,7 @@ function callTrips () {
 			 		tripPoliticians = [];
 
 			 		politiciansList.forEach( function ( pol, ind ) {
-			 			if ( pol != 0 && ind != undefined ) {
+			 			if ( pol != 0 && ind != undefined && politicians[pol_lookup[pol]] != undefined ) {
 							tripPoliticians.push({
 								"id": pol_lookup[pol],
 								"name": politicians[pol_lookup[pol]]["name"]
@@ -113,25 +123,21 @@ function callTrips () {
 						crew = [];
 			 		}
 
-			 		var type = "";
+			 		var type = trip_mappings[data[5]];
+			 		var title = "";
+			 		var organizer = "";
 
-			 		switch ( data[5] ) {
-					case "Sejlads":
-						type = "trip";
-					break;
+			 		if ( data[6] != undefined && data[6] != "" ) {
+						title = data[6];
+			 		} else {
+			 			title = data[5];
+			 		}
 
-					case "Aftenmøde":
-						type = "afternoon_meeting";
-					break;
-
-					case "Vagt på kajen":
-						type = "watch_at_harbor";
-					break;
-
-					case "Debat":
-						type = "debate";
-					break;
-				}
+			 		if ( data[7] != undefined && data[7] != "" ) {
+						organizer = data[7];
+			 		} else {
+			 			organizer = "SCLEROSEFORENINGEN";
+			 		}
 
 					trips[tripIndex] = {
 						"id": tripIndex,
@@ -141,7 +147,10 @@ function callTrips () {
 						"crew": crew,
 						"politicians": tripPoliticians,
 						"type_text": data[5],
-						"type": type
+						"type": type,
+						"title": title,
+						"organizer": organizer,
+						"location": ( data[8] != undefined ) ? data[8] : ''
 					};
 
 					tripIndex++;
@@ -311,27 +320,31 @@ function callFerries () {
 	https.get(ferriesUrl, function(ferriesResponse) {
 		ferriesResponse.pipe(ferriesFile);
 
-		ferrieIndex = 0;
-		ferrieFirst = true;
+		var ferrieIndex = 0;
+		var ferrieFirst = true;
 
 		csv
 		.fromPath("data/ferries.csv")
 		.on("data", function(ferryData){
+			console.log("FERRYDATA");
 			if ( ferrieFirst == false ) {
-				var ferryPeople = null;
+				var ferryPeople = "";
 
-				if ( ferryData[5] != undefined ) {
-					ferryPeople = ferryData[5].split(",")
+				if ( ferryData[6] != undefined ) {
+					ferryPeople = ferryData[6].split(",");
 				}
 
-				ferries[ferrieIndex] = {
+				ferriesList[ferrieIndex] = {
 					"id": ferrieIndex,
 					"vehicles": ferryData[0].split(","),
 					"day": ferryData[1],
 					"from": ferryData[2],
 					"to": ferryData[3],
 					"time": ferryData[4],
-					"people": ferryPeople
+					"people": ferryPeople,
+					"title": "Færge",
+					"start": ferryData[4],
+					"end": ferryData[5]
 				};
 
 				ferrieIndex++;
@@ -341,12 +354,12 @@ function callFerries () {
 		.on("end", function(){
 			createPeople();
 
-			if ( ferries.length == 0 ) {
+			if ( ferriesList.length == 0 ) {
 				console.log("FERRIES didn't run");
 				return false;
 			}
 
-			fs.writeFile('data/ferries.json', JSON.stringify(ferries), function (err) {
+			fs.writeFile('data/ferries.json', JSON.stringify(ferriesList), function (err) {
 				
 			});
 		});
@@ -362,7 +375,6 @@ function createPeople () {
 
 	trips.forEach( function ( element, index ) {
 		if ( element["crew"] == "Alle" ) {
-			console.log(all);
 			element["crew"] = all.slice(0);
 		}
 
@@ -382,23 +394,7 @@ function createPeople () {
 					}
 				}
 				
-				switch ( element["type_text"] ) {
-					case "Sejlads":
-						element["type"] = "trip";
-					break;
-
-					case "Aftenmøde":
-						element["type"] = "afternoon_meeting";
-					break;
-
-					case "Vagt på kajen":
-						element["type"] = "watch_at_harbor";
-					break;
-
-					case "Debat":
-						element["type"] = "debate";
-					break;
-				}
+				element["type"] = trip_mappings[element["type_text"]];
 
 				people[contact_id]["activities"].push(element);
 			} else {
@@ -417,8 +413,38 @@ function createPeople () {
 	restaurants.forEach( function ( res, index ) {
 		people.forEach( function ( pep, i ) {
 			res["type"] = "restaurant";
+			res["title"] = res["meal"];
 
 			pep["activities"].push(res);
+		} );
+	} );
+
+	ferriesList.forEach( function ( ferry, index ) {
+		ferry["people"].forEach( function ( member, i ) {
+			if ( contacts_lookup[member] != undefined ) {
+				var contact_id = contacts_lookup[member];
+
+				ferry["people"][i] = {
+					"name": member,
+					"id": contact_id
+				}
+
+				if ( people[contact_id] == undefined ) {
+					people[contact_id] = {
+						"contact": contacts[contact_id],
+						"activities": []
+					}
+				}
+				
+				ferry["type"] = "ferry";
+
+				people[contact_id]["activities"].push(ferry);
+			} else {
+				ferriesList[index]["people"][i] = {
+					"name": member,
+					"id": 00
+				};
+			}
 		} );
 	} );
 
@@ -432,4 +458,6 @@ function createPeople () {
 
 	fs.writeFile('data/people.json', JSON.stringify(people), function (err) {
 	});
+
+	return true;
 }

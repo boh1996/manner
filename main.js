@@ -42,8 +42,26 @@ Handlebars.registerHelper('breaklines', function (text) {
   return new Handlebars.SafeString(text);
 });
 
+Handlebars.registerHelper('removeComma', function (text) {
+  return text.replace(/,\s*$/, "");
+});
+
+Handlebars.registerHelper('showFirstNames', function (names) {
+	if ( names == undefined ) {
+		return "";
+	}
+
+	var array = [];
+
+	$(names).each( function ( index, item ) {
+		array.push(item.name.split(" ")[0]);
+	} );
+
+ 	return array.join(", ");
+});
+
 Handlebars.registerHelper('firstname', function (text) {
-	return text.split(" ")[0] + ",";
+	return text.split(" ")[0];
 });
 
 var mappings = {
@@ -57,7 +75,11 @@ var tripMappings = {
 	"afternoon_meeting" : "group_work",
 	"afternoom_meeting"	: "group_work",
 	"watch_at_harbor" : "watch_later",
-	"debate": "speaker_group"
+	"debate": "speaker_group",
+	"run": "directions_run",
+	"go_home_event": "directions_run",
+	"ferry": "directions_boat",
+	"workshop": "play_for_work"
 }
 
 Handlebars.registerHelper('foodIcons', function(context, options) {
@@ -172,9 +194,11 @@ function render(url) {
 		case "locations":
 			$("#locations").addClass("visible");
 			$(".mdl-layout-title").html("Indkvartering");
-
-			google.maps.event.trigger(window.map,'resize');
-			window.map.setCenter({lat: 55.279732, lng: 14.7964033});
+			
+			if ( typeof google != "undefined" ) {
+				google.maps.event.trigger(window.map,'resize');
+				window.map.setCenter({lat: 55.279732, lng: 14.7964033});
+			}
 		break;
 
 		case "ferries":
@@ -245,7 +269,7 @@ function render(url) {
 
 			$("#dayTripSelect").removeClass("hidden");
 			$("#trips").addClass("visible");
-			$(".mdl-layout-title").html("Aktiviteter");
+			$(".mdl-layout-title").html("Mandskabsplan");
 		break;
 
 		default:
@@ -325,16 +349,28 @@ function render(url) {
 						switch ( item["type"] ) {
 							case "trip":
 								item["icon"] = "directions_boat";
-								item["label"] = "Sejlads";
+								if ( item["title"] != "" ) {
+									item["label"] = item["title"];
+								} else {
+									item["label"] = "Sejlads";
+								}
 							break;
 
 							case "restaurant":
-								item["label"] = item["meal"];
+								if ( item["title"] != "" ) {
+									item["label"] = item["title"];
+								} else {
+									item["label"] = item["meal"];
+								}
 								item["icon"] = mappings[item["meal"]];
 							break;
 
 							default:
-								item["label"] = item["type_text"];
+								if ( item["title"] != "" ) {
+									item["label"] = item["title"];
+								} else {
+									item["label"] = item["type_text"];
+								}
 								item["icon"] = tripMappings[item["type"]];
 							break;
 						}

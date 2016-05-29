@@ -1,16 +1,16 @@
-Dag,Type,Sted,Antal personer,Start,Slut
-Onsdag,Aftensmad,Nordbornholms Røgeri i Allinge,Booket til 20 personerÆndringer senest en uge før.,19:00,21:00
-Torsdag,Morgenmad,Eget hus,Indkøb,8:00,8:45
-Torsdag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Indkøb,12:00,14:00
+Dag,Type,Sted,Bemærkning,Start,Slut
+Onsdag,Aftensmad,Nordbornholms Røgeri i Allinge,Booket til 20 personer. Ændringer senest en uge før.,19:00,21:00
+Torsdag,Morgenmad,Eget hus,I skal selv indkøbe,8:00,8:45
+Torsdag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Bliver indkøbt for jer,12:00,14:00
 Torsdag,Frokost,På Mester,Christianshøjkroen,12:00,14:00
 Torsdag,Aftensmad,"Stakkevænget 4 Sandvig, 3770 Allinge",Christianshøjkroen,19:00,20:00
-Fredag,Morgenmad,Eget hus,Indkøb,8:00,8:45
-Fredag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Indkøb,12:00,14:00
+Fredag,Morgenmad,Eget hus,I skal selv indkøbe,8:00,8:45
+Fredag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Bliver indkøbt for jer,12:00,14:00
 Fredag,Frokost,På Mester,Christianshøjkroen,12:00,14:00
 Fredag,Aftensmad,"Stakkevænget 4 Sandvig, 3770 Allinge",Christianshøjkroen,19:00,20:00
-Lørdag,Morgenmad,Eget hus,Indkøb,8:00,8:45
-Lørdag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Indkøb,12:00,14:00
+Lørdag,Morgenmad,Eget hus,I skal selv indkøbe,8:00,8:45
+Lørdag,Frokost,"Rosengade 15, Allinge kl. 12.00-14.00",Bliver indkøbt for jer,12:00,14:00
 Lørdag,Frokost,På Mester,Christianshøjkroen,12:00,14:00
 Lørdag,Aftensmad,"SOMMER PONY Strandvejen 68, 3770 Allinge kl. 18.00",Booket til 12 personer,18:00,19:00
-Søndag,Morgenmad,Eget hus,,9:00,9:45
+Søndag,Morgenmad,Eget hus,I skal selv indkøbe,9:00,9:45
 Søndag,Frokost,,,12:00,14:00

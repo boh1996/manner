@@ -1,6 +1,9 @@
-Køretøj,Dag,Fra,Til,Tid,Personer
-"3 bil,1 varebil",Onsdag,Ystad,Bornholm,12:30,"Klaus Høm,Torben Damsgaard,Peter P. Christensen/Mai C. Thode"
-1 bil,Torsdag,Ystad,Bornholm,20:30,Christian
-2 bil,Lørdag,Bornholm,Ystad,22:30,"Klaus Høm,Torben Damsgaard"
-1 bil,Lørdag,Bornholm,Ystad,16:30,Christian
-"1 varebil,1 bil",Søndag,Bornholm,Ystad,15:00,"T. Tuborg Petersen,Peter P. Christensen/Mai C. Thode"
+Vehicle,Dag,Fra,Til,Tid,Slut,Personer
+1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Peter Christensen,Jette Bay,Nathascja Nepper Bryld"
+1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Nadia Buchard,Gitte"
+1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Klaus Høm,Torben Damsgaard,Lasse Skovgaard"
+1 varebil,Onsdag,Ystad,Bornholm,12:30,13:50,Tuborg Petersen
+1 bil,Lørdag,Bornholm,Ystad,22:30,23:50,"Peter Christensen,Jette Bay,Nathascja Nepper Bryld"
+1 bil,Lørdag,Bornholm,Ystad,22:30,23:50,"Nadia Buchard,Gitte"
+1 bil,Søndag,Bornholm,Ystad,15:00,16:20,"Klaus Høm,Torben Damsgaard,Lasse Skovgaard"
+1 varebil,Søndag,Bornholm,Ystad,15:00,16:20,Tuborg Petersen
