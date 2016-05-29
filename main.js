@@ -265,7 +265,7 @@ function render(url) {
 				$(nav).attr("href", $(nav).attr("href").replace("plan", "trips"));
 			} );
 
-			$("#nav-ons").trigger("click");
+			$("#nav-tor").trigger("click");
 
 			$("#dayTripSelect").removeClass("hidden");
 			$("#trips").addClass("visible");
@@ -382,7 +382,7 @@ function render(url) {
 					}
 				}
 
-				$("#nav-ons").trigger("click");
+				$("#nav-tor").trigger("click");
 
 				$("#peoplePlan").addClass("visible");
 				$(".mdl-layout-title").html(context.contact.name);
