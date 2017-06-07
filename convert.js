@@ -30,7 +30,9 @@ var trip_mappings = {
 	"Debat": "debate",
 	"Løb": "run",
 	"Gå-hjem event": "go_home_event",
-	"Workshop": "workshop"
+	"Workshop": "workshop",
+	"Morgenmad": "breakfast",
+	"Møde": "meeting"
 };
 
 callPoliticians();
@@ -342,7 +344,8 @@ function callFerries () {
 					"to": ferryData[3],
 					"time": ferryData[4],
 					"people": ferryPeople,
-					"title": "Færge",
+					"title": ferryData[7],
+					"type": ferryData[7],
 					"start": ferryData[4],
 					"end": ferryData[5]
 				};

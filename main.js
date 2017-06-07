@@ -79,7 +79,9 @@ var tripMappings = {
 	"run": "directions_run",
 	"go_home_event": "directions_run",
 	"ferry": "directions_boat",
-	"workshop": "play_for_work"
+	"workshop": "play_for_work",
+	"breakfast": "free_breakfast",
+	"meeting": "speaker_group"
 }
 
 Handlebars.registerHelper('foodIcons', function(context, options) {
@@ -211,7 +213,7 @@ function render(url) {
 
 			$("#ferries").addClass("visible");
 
-			$(".mdl-layout-title").html("Færgeoversigt");
+			$(".mdl-layout-title").html("Transport");
 		break;
 
 		case "contacts":
@@ -312,7 +314,7 @@ function render(url) {
 
 				$("#ferry").find("table").html(html);
 				$("#ferry").addClass("visible");
-				$(".mdl-layout-title").html("Færge");
+				$(".mdl-layout-title").html("Transport");
 			} else if ( polPatt.test(url) ) {
 				var id = url.replace("politician/", "");
 				var source   = $("#politicianTemplate").html();

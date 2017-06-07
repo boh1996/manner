@@ -1,9 +1,11 @@
-Vehicle,Dag,Fra,Til,Tid,Slut,Personer
-1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Peter Christensen,Jette Bay,Nathascja Nepper Bryld"
-1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Nadia Buchard,Gitte"
-1 bil,Onsdag,Ystad,Bornholm,12:30,13:50,"Klaus Høm,Torben Damsgaard,Lasse Skovgaard"
-1 varebil,Onsdag,Ystad,Bornholm,12:30,13:50,Tuborg Petersen
-1 bil,Lørdag,Bornholm,Ystad,22:30,23:50,"Peter Christensen,Jette Bay,Nathascja Nepper Bryld"
-1 bil,Lørdag,Bornholm,Ystad,22:30,23:50,"Nadia Buchard,Gitte"
-1 bil,Søndag,Bornholm,Ystad,15:00,16:20,"Klaus Høm,Torben Damsgaard,Lasse Skovgaard"
-1 varebil,Søndag,Bornholm,Ystad,15:00,16:20,Tuborg Petersen
+Vehicle,Dag,Fra,Til,Tid,Slut,Personer,Type
+1 bil,Onsdag,Ystad,Rønne,14:30,15:50,"Peter P. Christensen,Klaus Høm,Casper Lykke",Færge
+1 varebil,Onsdag,Ystad,Rønne,14:30,15:50,T. Tuborg Petersen,Færge
+,Torsdag,Kastrup,Rønne,9:10,9:45,"Jette Bay,Torben Damsgaard,Nadia Buchard,Lasse E. Skovgaard,Gitte Rudbeck",Fly
+,Torsdag,Kastrup,Rønne,19:30,20:05,Ida Siemens,Fly
+,Lørdag,Rønne,Kastrup,17:45,18:15,Tanja Lindgaard,Fly
+,Lørdag,Rønne,Kastrup,20:00,20:30,"Jette Bay,Nadia Buchard,Gitte Rudbeck",Fly
+,Lørdag,Rønne,Kastrup,11:00,11:35,Ida Siemens,Fly
+,Søndag,Rønne,Kastrup,17:00,17:30,"Torben Damsgaard,Lasse E. Skovgaard,Annette Søndergaard",Fly
+1 bil,Lørdag,Rønne,Ystad,22:30,23:50,"Peter P. Christensen,Klaus Høm,Casper Lykke",Færge
+1 varebil,Søndag,Rønne,Ystad,15:00,17:30,T. Tuborg Petersen,Færge
