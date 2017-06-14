@@ -5,28 +5,28 @@
 		<meta charset="utf-8" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="apple-touch-icon" sizes="57x57" href="http://bothomsen.me/manner/apple-touch-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="http://bothomsen.me/manner/apple-touch-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="http://bothomsen.me/manner/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="http://bothomsen.me/manner/apple-touch-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="http://bothomsen.me/manner/apple-touch-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="http://bothomsen.me/manner/apple-touch-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="http://bothomsen.me/manner/apple-touch-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="http://bothomsen.me/manner/apple-touch-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="http://bothomsen.me/manner/apple-touch-icon-180x180.png">
-		<link rel="icon" type="image/png" href="http://bothomsen.me/manner/favicon-32x32.png" sizes="32x32">
-		<link rel="icon" type="image/png" href="http://bothomsen.me/manner/android-chrome-192x192.png" sizes="192x192">
-		<link rel="icon" type="image/png" href="http://bothomsen.me/manner/favicon-96x96.png" sizes="96x96">
-		<link rel="icon" type="image/png" href="http://bothomsen.me/manner/favicon-16x16.png" sizes="16x16">
-		<link rel="manifest" href="http://bothomsen.me/manner/manifest.json">
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
 		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="msapplication-TileImage" content="http://bothomsen.me/manner/mstile-144x144.png">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		<meta name="application-name" content="Mandskabsplan"/>
-		<link REL="SHORTCUT ICON" HREF="http://bothomsen.me/manner/favicon.ico">
+		<link REL="SHORTCUT ICON" HREF="/favicon.ico">
 
-		<link rel="stylesheet" href="http://bothomsen.me/manner/material.min.css">
-		<script src="http://bothomsen.me/manner/material.min.js"></script>
+		<link rel="stylesheet" href="/material.min.css">
+		<script src="/material.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="styl.css?v2">
 	</head>
 	
@@ -42,6 +42,7 @@
 
 				<div class="mdl-layout__tab-bar mdl-js-ripple-effect hidden" id="dayTripSelect">
 					<!--<a href="#trips-onsdag" id="nav-ons" class="mdl-layout__tab is-active">Ons</a>-->
+					<a href="#trips-onsdag" id="nav-ons" class="mdl-layout__tab">Ons</a>
 					<a href="#trips-torsdag" id="nav-tor" class="mdl-layout__tab">Tor</a>
 					<a href="#trips-fredag" id="nav-fre" class="mdl-layout__tab">Fre</a>
 					<a href="#trips-loerdag" id="nav-loe" class="mdl-layout__tab">Lør</a>
@@ -207,7 +208,7 @@
 
 		<script type="text/x-handlebars-template" id="peoplePlanTemplate">
 			<div class="mdl-list__item mdl-list__item--three-line">
-				<span class="mdl-list__item-primary-content" data-href="#trip/{{id}}">
+				<span class="mdl-list__item-primary-content" data-href="#{{#activityUrl type}}{{/activityUrl}}/{{id}}">
 					<i class="material-icons mdl-list__item-avatar">{{icon}}</i>
 					<span>{{label}}</span>
 					<span class="mdl-list__item-text-body">
@@ -220,7 +221,7 @@
 
 		<script type="text/x-handlebars-template" id="tripItemTemplate">
 			<div class="mdl-list__item mdl-list__item--three-line">
-				<span class="mdl-list__item-primary-content" data-href="#trip/{{id}}">
+				<span class="mdl-list__item-primary-content" data-href="#{{#activityUrl type}}{{/activityUrl}}/{{id}}">
 					<i class="material-icons mdl-list__item-avatar">{{#tripIcons type}}{{/tripIcons}}</i>
 					<span>{{title}}</span>
 					<span class="mdl-list__item-text-body">
@@ -236,8 +237,8 @@
 				 {{#each ferries}}
 					<div class="mdl-list__item mdl-list__item--three-line">
 						<span class="mdl-list__item-primary-content" data-href="#ferry/{{id}}">
-							<i class="material-icons mdl-list__item-avatar">directions_boat</i>
-							<span>Færge</span>
+							<i class="material-icons mdl-list__item-avatar">{{#transportIcons type}}{{/transportIcons}}</i>
+							<span>{{title}}</span>
 							<span class="mdl-list__item-text-body">
 								{{#showFirstNames people}}{{/showFirstNames}}
 							</span>

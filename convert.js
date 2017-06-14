@@ -439,7 +439,7 @@ function createPeople () {
 					}
 				}
 				
-				ferry["type"] = "ferry";
+				ferry["type"] = ( ferry["type"] == "Færge" ) ? "ferry" : "plane";
 
 				people[contact_id]["activities"].push(ferry);
 			} else {

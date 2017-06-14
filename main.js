@@ -10,11 +10,33 @@ function initMap() {
 		window.hotels = data;
 
 		$(window.hotels).each(function (index, element) {
-			new google.maps.Marker({
+			var marker = new google.maps.Marker({
 				map: window.map,
 				position: {lat: parseFloat(element.lat), lng: parseFloat(element.lng)},
 				title: element.name
 	  		});
+
+	  		 var infowindow = new google.maps.InfoWindow({
+	          content: [
+	          	'<div>',
+	          	'<h5>',
+	          	element.name,
+	          	'</h5>',
+	          	element.address,
+	          	'<br />',
+	          	element.period,
+	          	'<br />',
+	          	element.people.join(','),
+	          	'<br />',
+	          	element.rooms.join(','),
+	          	'</div>'
+	          ].join('')
+	        });
+
+	  		marker.addListener('click', function() {
+	  			infowindow.open(window.map, marker);
+	          	window.map.setCenter(marker.getPosition());
+	        });
 		});
 
 		var myloc = new google.maps.Marker({
@@ -54,7 +76,13 @@ Handlebars.registerHelper('showFirstNames', function (names) {
 	var array = [];
 
 	$(names).each( function ( index, item ) {
-		array.push(item.name.split(" ")[0]);
+		var firstname = item.name.split(" ")[0];
+
+		if ( firstname == "T." || firstname == "T" ) {
+			firstname = "Tuborg";
+		}
+
+		array.push(firstname);
 	} );
 
  	return array.join(", ");
@@ -82,18 +110,36 @@ var tripMappings = {
 	"workshop": "play_for_work",
 	"breakfast": "free_breakfast",
 	"meeting": "speaker_group"
-}
+};
+
+var urlMappings = {
+	"trip": "trip",
+	"breakfast": "restaurant",
+	"restaurant": "restaurant",
+	"ferry": "ferry",
+	"workshop": "trip",
+	"plane": "ferry"
+};
 
 Handlebars.registerHelper('foodIcons', function(context, options) {
 	return mappings[context];
 });
 
+Handlebars.registerHelper('transportIcons', function(context, options) {
+	return ( context == "ferry" ) ? 'directions_boat' : 'airplanemode_active';
+});
+
 Handlebars.registerHelper('tripIcons', function(context, options) {
+	console.log(context);
 	return tripMappings[context];
 });
 
+Handlebars.registerHelper('activityUrl', function(context, options) {
+	return ( urlMappings[context] != undefined ) ? urlMappings[context] : 'trip'
+});
+
 $(document).on("click", "#navigation a", function () {
-	$(".mdl-layout__drawer-button").trigger("click");
+	$(".mdl-layout__drawer-button").get(0).click();
 } );
 
 $(window).on('hashchange', function(){
@@ -103,7 +149,6 @@ $(window).on('hashchange', function(){
 });
 
 $(document).on("click", '[data-href]', function ( e ) {
-	console.log($(this).attr("data-href"));
 	window.location.hash = $(this).attr("data-href");
 	e.preventDefault();
 });
@@ -267,11 +312,11 @@ function render(url) {
 				$(nav).attr("href", $(nav).attr("href").replace("plan", "trips"));
 			} );
 
-			$("#nav-tor").trigger("click");
 
 			$("#dayTripSelect").removeClass("hidden");
 			$("#trips").addClass("visible");
 			$(".mdl-layout-title").html("Mandskabsplan");
+			$("#nav-ons").get(0).click();
 		break;
 
 		default:
@@ -330,7 +375,6 @@ function render(url) {
 				$(".mdl-layout-title").html(context.name);
 			} else if ( peoplePatt.test(url) ) {
 				var id = url.replace("people/", "");
-				console.log(id);
 				var source   = $("#peoplePlanTemplate").html();
 				var template = Handlebars.compile(source);
 				var context = window.people[id];
@@ -384,10 +428,10 @@ function render(url) {
 					}
 				}
 
-				$("#nav-tor").trigger("click");
 
 				$("#peoplePlan").addClass("visible");
 				$(".mdl-layout-title").html(context.contact.name);
+				$("#nav-ons").get(0).click();
 			} else {
 				 window.location.hash = "#people";
 			}
