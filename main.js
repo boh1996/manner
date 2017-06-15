@@ -162,19 +162,19 @@ $(document).on("ready", function () {
 		window.restaurants = data;
 	});
 
-	$.get("data/people.json", function( data ) {
+	$.get("data/people.json?time=" + Date.now(), function( data ) {
 		window.people = data;
 	});
 
-	$.get("data/politicians.json", function( data ) {
+	$.get("data/politicians.json?time=" + Date.now(), function( data ) {
 		window.politicians = data;
 	});
 
-	$.get("data/contacts.json", function( data ) {
+	$.get("data/contacts.json?time=" + Date.now(), function( data ) {
 		window.contacts = data;
 		window.crews = [];
 
-		$.get("data/trips.json", function( data ) {
+		$.get("data/trips.json?time=" + Date.now(), function( data ) {
 			window.trips = data;
 			var source   = $("#tripItemTemplate").html();
 			var template = Handlebars.compile(source);
